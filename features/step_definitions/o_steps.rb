@@ -7,3 +7,7 @@ end
 Given /^I have a custom command in "(.*?)"$/ do |cmd_file, cmd_text|
   File.open(File.expand_path(cmd_file), 'w') { |f| f << cmd_text }
 end
+
+
+
+

@@ -1,5 +1,6 @@
 require 'aruba/cucumber'
 
+
 ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__) + '/../../bin')}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','lib')
 
@@ -30,4 +31,12 @@ After do
   ENV['HOME'] = @original_home
 end
 
+def fixture_path(path)
+  File.join('test', 'fixtures', path)
+end
 
+def json_fixture(path)
+  data = JSON.parse(File.open(fixture_path(path)).read)
+
+  Hashie::Mash.new data
+end
