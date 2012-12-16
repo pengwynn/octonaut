@@ -1,0 +1,3 @@
+module O
+  VERSION = '0.0.1'
+end
