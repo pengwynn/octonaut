@@ -1,7 +1,7 @@
 Feature: Custom commands
   In order to do special CLI tasks
-  As an O user
-  I want to specify custom O commands
+  As an Octonaut user
+  I want to specify custom Octonaut commands
 
   Scenario: App just runs
     When I get help for "o"

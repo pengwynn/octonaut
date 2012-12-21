@@ -1,18 +1,18 @@
 # Ensure we require the local version and not one we might have installed already
-require File.join([File.dirname(__FILE__),'lib','o','version.rb'])
+require File.join([File.dirname(__FILE__),'lib','octonaut','version.rb'])
 spec = Gem::Specification.new do |s| 
-  s.name = 'o'
-  s.version = O::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.name = 'octonaut'
+  s.version = Octonaut::VERSION
+  s.author = ['Wynn Netherland', 'Larry Marburger']
+  s.email = 'wynn.netherland@gmail.com'
+  s.homepage = 'http://github.com/pengwynn'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'CLI for GitHub'
 # Add your other files here if you make them
   s.files = %w(
-bin/o
-lib/o/version.rb
-lib/o.rb
+bin/octonaut
+lib/octonaut/version.rb
+lib/octonaut.rb
   )
   s.require_paths << 'lib'
   s.has_rdoc = true

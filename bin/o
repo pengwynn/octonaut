@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require 'gli'
-require 'o'
+require 'octonaut'
 include GLI::App
 
 program_desc 'Octokit-powered CLI for GitHub'
 
-version O::VERSION
+version Octonaut::VERSION
 
 commands_from 'o/commands'
 commands_from ENV['HOME']

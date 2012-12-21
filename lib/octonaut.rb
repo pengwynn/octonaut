@@ -1,5 +1,5 @@
 require 'octokit'
-require 'o/version.rb'
+require 'octonaut/version.rb'
 
 
 # Add requires for other files you add to your project here, so
