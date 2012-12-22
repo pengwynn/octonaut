@@ -16,8 +16,8 @@ lib/octonaut.rb
   )
   s.require_paths << 'lib'
   s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','o.rdoc']
-  s.rdoc_options << '--title' << 'o' << '--main' << 'README.rdoc' << '-ri'
+  s.extra_rdoc_files = ['README.rdoc','octonaut.rdoc']
+  s.rdoc_options << '--title' << 'octonaut' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'o'
   s.add_dependency('octokit', '~> 1.17.0')

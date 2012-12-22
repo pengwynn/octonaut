@@ -8,7 +8,7 @@ program_desc 'Octokit-powered CLI for GitHub'
 
 version Octonaut::VERSION
 
-commands_from 'o/commands'
+commands_from 'octonaut/commands'
 commands_from ENV['HOME']
 
 desc 'Describe some switch here'
