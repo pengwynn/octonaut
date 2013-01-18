@@ -8,19 +8,11 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'http://github.com/pengwynn'
   s.platform = Gem::Platform::RUBY
   s.summary = 'CLI for GitHub'
-# Add your other files here if you make them
-  s.files = %w(
-bin/octonaut
-lib/octonaut/version.rb
-lib/octonaut.rb
-  )
+  s.files = `git ls-files`.split('\n')
   s.require_paths << 'lib'
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','octonaut.rdoc']
-  s.rdoc_options << '--title' << 'octonaut' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'o'
-  s.add_dependency('octokit', '~> 1.17.0')
+  s.add_dependency('octokit', '~> 1.22.0')
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
