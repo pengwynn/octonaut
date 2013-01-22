@@ -1,7 +1,7 @@
 module Octonaut
   command :me do |c|
     c.action do |global,options,args|
-      data = Octokit.user('pengwynn')
+      data = @client.user
 
       data.each { | key, value | puts "#{key.rjust(data.keys.map(&:length).max)} #{value}" }
     end
@@ -16,7 +16,9 @@ module Octonaut
   end
 
   command :search do |c|
-
+    c.action do |global,options,args|
+      puts global.merge(options).inspect
+    end
   end
 
   command :followers do |c|

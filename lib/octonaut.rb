@@ -4,20 +4,16 @@ require 'octonaut/version'
 
 module Octonaut
   extend GLI::App
+  OCTOKIT_CONFIG_KEYS = [:netrc]
 
   program_desc 'Octokit-powered CLI for GitHub'
   commands_from 'octonaut/commands'
   commands_from File.join(ENV['HOME'], '.octonaut', 'plugins')
 
 
-  desc 'Describe some switch here'
-  switch [:s,:switch]
-
-  desc 'Describe some flag here'
-  default_value 'the default'
-  arg_name 'The name of the argument'
-  flag [:f,:flagname]
-
+  desc 'Use .netrc file for authentication'
+  default_value true
+  switch [:n, :netrc]
 
 
   pre do |global,command,options,args|
@@ -26,6 +22,8 @@ module Octonaut
     # chosen command
     # Use skips_pre before a command to skip this block
     # on that command only
+
+    @client = client(global, options)
     true
   end
 
@@ -39,6 +37,12 @@ module Octonaut
     # Error logic here
     # return false to skip default error handling
     true
+  end
+
+  def self.client(global, options)
+    opts = global.merge(options).
+      select {|k, v| OCTOKIT_CONFIG_KEYS.include?(k) }
+    Octokit::Client.new(opts)
   end
 
 end
