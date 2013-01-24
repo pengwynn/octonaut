@@ -1,9 +1,12 @@
 require 'gli'
 require 'octokit'
+require 'octonaut/printer'
 require 'octonaut/version'
 
 module Octonaut
   extend GLI::App
+  extend Octonaut::Printer
+
   OCTOKIT_CONFIG_KEYS = [:netrc]
 
   program_desc 'Octokit-powered CLI for GitHub'
