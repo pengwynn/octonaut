@@ -1,7 +1,7 @@
 module Octonaut
   module Printer
 
-    USER_FIELDS = %w(id login name company location followers hireable bio)
+    USER_FIELDS = %w(id login name company location followers hireable)
 
     def print_user(user)
       data = {}
