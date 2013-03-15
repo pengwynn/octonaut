@@ -1,4 +1,5 @@
 module Octonaut
+  desc "View your profile"
   command :me do |c|
     c.action do |global,options,args|
       data = @client.user
@@ -7,6 +8,7 @@ module Octonaut
     end
   end
 
+  desc "View profile for a user"
   command [:user, :whois] do |c|
     c.action do |global,options,args|
       data = Octokit.user args.first
