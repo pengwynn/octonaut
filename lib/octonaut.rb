@@ -21,9 +21,9 @@ module Octonaut
   desc 'GitHub login'
   flag [:u, :login]
   desc 'GitHub password'
-  flag [:p, :password]
+  flag [:p, :password], :mask => true
   desc 'GitHub API token'
-  flag [:t, :oauth_token]
+  flag [:t, :oauth_token, :token], :mask => true
 
 
   pre do |global,command,options,args|
