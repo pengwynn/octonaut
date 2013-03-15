@@ -41,6 +41,13 @@ describe Octonaut do
       expect(a_get("https://defunkt:il0veruby@api.github.com/user")).to have_been_made
     end
 
+    it "uses basic auth" do
+      stub_get("https://pengwynn:m3tal@api.github.com/user").
+        to_return(json_response("user.json"))
+      Octonaut.run %w(--login=pengwynn --password=m3tal me)
+      expect(a_get("https://pengwynn:m3tal@api.github.com/user")).to have_been_made
+    end
+
   end
 
 end
