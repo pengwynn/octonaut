@@ -35,10 +35,32 @@ describe Octonaut do
     end
 
     it "knows about .netrc info" do
-      stub_get("https://defunkt:il0veruby@api.github.com/user").
+      request = stub_get("https://defunkt:il0veruby@api.github.com/user").
         to_return(json_response("user.json"))
       Octonaut.run %w(-n me)
-      expect(a_get("https://defunkt:il0veruby@api.github.com/user")).to have_been_made
+      expect(request).to have_been_made
+    end
+
+    it "uses basic auth" do
+      request = stub_get("https://pengwynn:m3tal@api.github.com/user").
+        to_return(json_response("user.json"))
+      Octonaut.run %w(--login=pengwynn --password=m3tal me)
+      expect(request).to have_been_made
+    end
+
+    it "can use an OAuth token" do
+      request = stub_get("https://pengwynn:m3tal@api.github.com/user").
+        to_return(json_response("user.json"))
+      Octonaut.run %w(--login=pengwynn --password=m3tal me)
+      expect(request).to have_been_made
+    end
+
+    it "can use an OAuth token" do
+      request = stub_get("https://api.github.com/user").
+        with(:headers => { "Authorization" => "token 1234567890123456789012345678901234567890" }).
+        to_return(json_response("user.json"))
+      Octonaut.run %w(--oauth_token=1234567890123456789012345678901234567890 me)
+      expect(request).to have_been_made
     end
 
   end

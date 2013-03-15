@@ -2,18 +2,18 @@ module Octonaut
   desc "View your profile"
   command :me do |c|
     c.action do |global,options,args|
-      data = @client.user
+      user = @client.user
 
-      data.each { | key, value | puts "#{key.rjust(data.keys.map(&:length).max)} #{value}" }
+      print_user user
     end
   end
 
   desc "View profile for a user"
   command [:user, :whois] do |c|
     c.action do |global,options,args|
-      data = Octokit.user args.first
+      user = Octokit.user args.first
 
-      data.each { | key, value | puts "#{key.rjust(data.keys.map(&:length).max)} #{value}" }
+      print_user user
     end
   end
 
