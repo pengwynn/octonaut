@@ -7,7 +7,7 @@ module Octonaut
   extend GLI::App
   extend Octonaut::Printer
 
-  OCTOKIT_CONFIG_KEYS = [:netrc, :login, :password]
+  OCTOKIT_CONFIG_KEYS = [:netrc, :login, :password, :oauth_token]
 
   program_desc 'Octokit-powered CLI for GitHub'
   commands_from 'octonaut/commands'
@@ -17,8 +17,13 @@ module Octonaut
   desc 'Use .netrc file for authentication'
   default_value false
   switch [:n, :netrc]
-  flag   [:login]
-  flag   [:password]
+
+  desc 'GitHub login'
+  flag [:u, :login]
+  desc 'GitHub password'
+  flag [:p, :password]
+  desc 'GitHub API token'
+  flag [:t, :oauth_token]
 
 
   pre do |global,command,options,args|
