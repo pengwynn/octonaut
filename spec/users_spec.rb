@@ -7,39 +7,6 @@ describe Octonaut do
     $stderr = StringIO.new
     @old_stdout = $stdout
     $stdout = StringIO.new
-
-    @unsorted_user_ls = <<-EOS
-sanyer
-birgita
-Sakirk
-shilezi
-zhuyinan
-Sup3rgnu
-tokuda109
-robot9
-bcachet
-turboho
-luoyangylh
-rmmillar86
-yekowele
-ksauzz
-tsnow
-ziyasal
-jessebikman
-svallory
-srned
-rafaelsachetto
-cslew
-igoogle1990
-johnnywell
-yoshi10321
-matthewmspencer
-showaid
-eranb
-mzararagoza
-douglascamata
-jnewland
-      EOS
   end
 
   after :each do
@@ -79,7 +46,7 @@ jnewland
 
       Octonaut.run %w(-l defunkt -p il0veruby followers)
       expect(request).to have_been_made
-      expect($stdout.string).to eq(@unsorted_user_ls)
+      expect($stdout.string).to eq(fixture('users.ls').read)
     end
 
     it "should list followers for a user" do
@@ -88,7 +55,7 @@ jnewland
 
       Octonaut.run %w(followers pengwynn)
       expect(request).to have_been_made
-      expect($stdout.string).to eq(@unsorted_user_ls)
+      expect($stdout.string).to eq(fixture('users.ls').read)
     end
 
   end
