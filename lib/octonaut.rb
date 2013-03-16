@@ -1,3 +1,4 @@
+require 'csv'
 require 'gli'
 require 'octokit'
 require 'octonaut/printer'
@@ -44,9 +45,13 @@ module Octonaut
   end
 
   on_error do |exception|
-    # Error logic here
-    # return false to skip default error handling
-    true
+    case exception
+    when Octokit::Unauthorized
+      puts "Authentication required. Please check your login, password, or token."
+    else
+      # Need to handle other return codes within the calling method
+      true
+    end
   end
 
   def self.client(global, options)
