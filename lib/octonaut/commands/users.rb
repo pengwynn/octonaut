@@ -3,7 +3,7 @@ module Octonaut
   command :me do |c|
     c.action do |global,options,args|
       user = @client.user
-      print_user user
+      print_user_table user
     end
   end
 
@@ -14,7 +14,7 @@ module Octonaut
       login = args.shift
       begin
         user = @client.user login
-        print_user user
+        print_user_table user
       rescue Octokit::NotFound
         puts "User #{login} not found"
       end

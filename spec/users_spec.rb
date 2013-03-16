@@ -41,13 +41,13 @@ describe Octonaut do
   context "listing followers" do
 
     it "should list followers for the current user" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/user/followers").
+      request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/followers").
         to_return(json_response("users.json"))
 
-      Octonaut.run %w(-l=defunkt -u=il0veruby followers)
+      Octonaut.run %w(-l defunkt -p il0veruby followers)
       expect(request).to have_been_made
       expect($stdout.string).to eq <<-EOS
-anyer
+sanyer
 birgita
 Sakirk
 shilezi
