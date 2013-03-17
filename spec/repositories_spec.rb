@@ -28,6 +28,20 @@ describe Octonaut do
 
     end
 
+    context "listing repositories" do
+
+      it "lists your repositories" do
+        request = stub_get("https://defunkt:il0veruby@api.github.com/user/repos").
+          to_return(json_response("repositories.json"))
+
+        Octonaut.run %w(-u defunkt -p il0veruby repos)
+        expect(request).to have_been_made
+
+        expect($stdout.string).to eq(fixture('repositories.ls').read)
+      end
+
+    end
+
   end
 
 end

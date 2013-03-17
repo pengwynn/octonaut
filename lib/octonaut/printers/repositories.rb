@@ -42,7 +42,7 @@ module Octonaut
       end
 
       def ls_repos(repos, options = {})
-        repos.each {|r| puts r.login }
+        repos.each {|r| puts r.name }
       end
     end
   end
