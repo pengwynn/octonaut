@@ -6,13 +6,19 @@ spec = Gem::Specification.new do |s|
   s.author = ['Wynn Netherland', 'Larry Marburger']
   s.email = 'wynn.netherland@gmail.com'
   s.homepage = 'http://github.com/pengwynn'
+  s.licenses = ['MIT']
   s.platform = Gem::Platform::RUBY
   s.summary = 'CLI for GitHub'
   s.files = `git ls-files`.split('\n')
+  s.files = %w(LICENSE.md Rakefile octonaut.gemspec)
+  s.files += Dir.glob("lib/**/*.rb")
+  s.files += Dir.glob("bin/**/*")
+  s.files += Dir.glob("spec/**/*")
   s.require_paths << 'lib'
   s.bindir = 'bin'
   s.executables << 'o'
   s.add_dependency('octokit', '~> 1.22.0')
+  s.add_dependency('launchy')
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('guard-cucumber')

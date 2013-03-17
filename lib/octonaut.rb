@@ -1,12 +1,15 @@
 require 'csv'
 require 'gli'
+require 'launchy'
 require 'octokit'
 require 'octonaut/printer'
+require 'octonaut/helpers'
 require 'octonaut/version'
 
 module Octonaut
   extend GLI::App
   extend Octonaut::Printer
+  extend Octonaut::Helpers
 
   OCTOKIT_CONFIG_KEYS = [:netrc, :login, :password, :oauth_token]
 
