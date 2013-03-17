@@ -24,10 +24,9 @@ module Octonaut
   desc "View followers for a user"
   arg_name 'login', :optional
   command :followers do |c|
-    c.switch :csv
     c.action do |global,options,args|
       login = args.shift || @client.login
-      list_users @client.followers(login), options
+      print_users @client.followers(login), options
     end
   end
 

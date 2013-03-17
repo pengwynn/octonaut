@@ -24,12 +24,13 @@ module Octonaut
         print_table(data)
       end
 
-      def list_users(users, options = {})
-        options[:csv] ? csv_users(users) : ls_users(users)
+      def print_users(users, options = {})
+        options[:csv] ? print_csv_users(users) : ls_users(users)
       end
 
-      def csv_users(users, options = {})
-        puts USER_FIELDS.values.to_csv
+      def print_csv_users(users, options = {})
+        options[:fields] = USER_FIELDS
+        print_csv users, options
       end
 
       def ls_users(users, options = {})
