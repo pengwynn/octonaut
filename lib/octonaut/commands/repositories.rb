@@ -29,4 +29,14 @@ module Octonaut
       ls_repos @client.repositories(login, opts)
     end
   end
+
+  desc "Display languages for a repo"
+  arg_name "owner/repo"
+  command [:langs, :languages] do |c|
+    c.action do |global,options,args|
+      name = args.shift
+
+      print_table @client.languages(name)
+    end
+  end
 end

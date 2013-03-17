@@ -28,6 +28,15 @@ describe Octonaut do
 
     end
 
+    it "displays languages for a repository" do
+      request = stub_get('/repos/pengwynn/dotfiles/languages').
+        to_return(json_response("languages.json"))
+
+      Octonaut.run %w(languages pengwynn/dotfiles)
+      expect(request).to have_been_made
+      expect($stdout.string).to eq(fixture('languages.table').read)
+    end
+
     context "listing repositories" do
 
       it "lists your repositories" do
