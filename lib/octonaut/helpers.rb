@@ -1,7 +1,7 @@
 module Octonaut
   module Helpers
 
-    def open(resource, relation = 'self')
+    def open(resource, relation = 'html')
       link_field = case relation
                    when 'self'
                      'url'
