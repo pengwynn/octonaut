@@ -4,7 +4,6 @@ module Octonaut
 
       USER_FIELDS = {
         "id"         => "ID",
-        "created_at" => "JOINED",
         "login"      => "LOGIN",
         "name"       => "NAME",
         "company"    => "COMPANY",
@@ -12,7 +11,8 @@ module Octonaut
         "followers"  => "FOLLOWERS",
         "following"  => "FOLLOWING",
         "hireable"   => "HIREABLE",
-        "blog"       => "URL"
+        "blog"       => "URL",
+        "created_at" => "JOINED"
       }
 
       def print_user_table(user, options = {})
