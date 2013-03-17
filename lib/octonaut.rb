@@ -11,8 +11,6 @@ module Octonaut
   extend Octonaut::Printer
   extend Octonaut::Helpers
 
-  OCTOKIT_CONFIG_KEYS = [:netrc, :login, :password, :oauth_token]
-
   program_desc 'Octokit-powered CLI for GitHub'
   commands_from 'octonaut/commands'
   commands_from File.join(ENV['HOME'], '.octonaut', 'plugins')
@@ -28,6 +26,9 @@ module Octonaut
   flag [:p, :password], :mask => true
   desc 'GitHub API token'
   flag [:t, :oauth_token, :token], :mask => true
+  desc 'Automatically fetch all pages of paginated results'
+  default_value true
+  switch [:a, :auto_traversal]
 
 
   pre do |global,command,options,args|
@@ -59,7 +60,7 @@ module Octonaut
 
   def self.client(global, options)
     opts = global.merge(options).
-      select {|k, v| OCTOKIT_CONFIG_KEYS.include?(k) }
+      select {|k, v| Octokit::Configuration::VALID_OPTIONS_KEYS.include?(k) }
     Octokit::Client.new(opts)
   end
 
