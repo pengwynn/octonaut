@@ -1,19 +1,12 @@
 module Octonaut
 
+  desc "Display details for a repository"
+  arg_name :name
   command [:repo, :repository] do |c|
-    c.default_command :show
+    c.action do |global,options,args|
+      name = args.shift
 
-    c.command :show do |show|
-      show.action do |global,options,args|
-        puts "#{show.name} #{args.first}"
-      end
+      print_repo_table @client.repo(name)
     end
-
-    c.command :browse do |browse|
-      browse.action do |global,options,args|
-        puts "#{browse.name} #{args.first}"
-      end
-    end
-
   end
 end
