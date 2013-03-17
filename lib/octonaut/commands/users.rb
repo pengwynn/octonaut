@@ -30,8 +30,13 @@ module Octonaut
     end
   end
 
+  desc "View who a user is following"
+  arg_name 'login', :optional
   command :following do |c|
-
+    c.action do |global,options,args|
+      login = args.shift || @client.login
+      print_users @client.following(login), options
+    end
   end
 
   command :follows do |c|
