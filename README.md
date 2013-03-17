@@ -19,6 +19,36 @@ gem install octonaut
 ```
 
 ### Example usage
+```
+NAME
+    octonaut - Octokit-powered CLI for GitHub
+
+SYNOPSIS
+    octonaut [global options] command [command options] [arguments...]
+
+GLOBAL OPTIONS
+    --help                         - Show this message
+    -n, --[no-]netrc               - Use .netrc file for authentication
+    -p, --password=arg             - GitHub password (default: ********)
+    -t, --oauth_token, --token=arg - GitHub API token (default: ********)
+    -u, --login=arg                - GitHub login (default: none)
+
+COMMANDS
+    browse           - Browse resource on github.com
+    follow           - Follow a user
+    followers        - View followers for a user
+    following        - View who a user is following
+    follows          - Check to see if a user follows another
+    help             - Shows a list of commands or help for one command
+    hit_me           -
+    me               - View your profile
+    repo, repository -
+    star             -
+    starred          -
+    unfollow         - Unfollow a user
+    unstar           -
+    user, whois      - View profile for a user
+```
 
 View a user's profile:
 
