@@ -14,9 +14,14 @@ module Octonaut
       login = args.shift
       begin
         user = @client.user login
-        print_user_table user
+        case user['type']
+        when 'Organization'
+          print_org_table user
+        else
+          print_user_table user
+        end
       rescue Octokit::NotFound
-        puts "User #{login} not found"
+        puts "User or organization #{login} not found"
       end
     end
   end

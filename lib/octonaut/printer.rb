@@ -1,3 +1,4 @@
+require 'octonaut/printers/organizations'
 require 'octonaut/printers/users'
 require 'octonaut/printers/repositories'
 
