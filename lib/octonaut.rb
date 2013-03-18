@@ -18,7 +18,10 @@ module Octonaut
 
   desc 'Use .netrc file for authentication'
   default_value false
-  flag [:n, :netrc]
+  switch [:n, :netrc]
+
+  desc '.netrc file for authentication'
+  flag "netrc-file"
 
   desc 'GitHub login'
   flag [:u, :login]
@@ -58,7 +61,10 @@ module Octonaut
   end
 
   def self.client(global, options)
-    opts = global.merge(options).
+    opts = global
+    netrc_path = global.delete("netrc-file")
+    opts[:netrc] = netrc_path if netrc_path
+    opts.merge!(options).
       select {|k, v| Octokit::Configuration::VALID_OPTIONS_KEYS.include?(k) }
     Octokit::Client.new(opts)
   end

@@ -25,7 +25,7 @@ describe Octonaut do
     it "knows about .netrc info" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/user").
         to_return(json_response("user.json"))
-      Octonaut.run %w(-n tmp/fakehome/.netrc me)
+      Octonaut.run %w(--netrc-file tmp/fakehome/.netrc me)
       expect(request).to have_been_made
     end
 
