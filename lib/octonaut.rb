@@ -18,7 +18,7 @@ module Octonaut
 
   desc 'Use .netrc file for authentication'
   default_value false
-  switch [:n, :netrc]
+  flag [:n, :netrc]
 
   desc 'GitHub login'
   flag [:u, :login]

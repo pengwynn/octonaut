@@ -15,14 +15,6 @@ describe Octonaut do
   end
 
   context "with an empty config file" do
-    before do
-      FileUtils.rm_f Dir.glob(File.join(ENV['HOME'], '.octonaut'))
-    end
-
-    after do
-      FileUtils.rm_f Dir.glob(File.join(ENV['HOME'], '.octonaut'))
-    end
-
     it "works" do
       expect(true).to be_true
     end
@@ -30,14 +22,10 @@ describe Octonaut do
 
   context "when authenticating" do
 
-    before do
-      FileUtils.cp File.join('spec', 'fixtures', '.netrc'), File.join(ENV['HOME'])
-    end
-
     it "knows about .netrc info" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/user").
         to_return(json_response("user.json"))
-      Octonaut.run %w(-n me)
+      Octonaut.run %w(-n tmp/fakehome/.netrc me)
       expect(request).to have_been_made
     end
 
