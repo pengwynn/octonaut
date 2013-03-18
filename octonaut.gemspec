@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
   s.files += Dir.glob("spec/**/*")
   s.require_paths << 'lib'
   s.bindir = 'bin'
-  s.executables << 'o'
+  s.executables << 'octonaut'
   s.add_dependency('octokit', '~> 1.22.0')
   s.add_dependency('launchy')
   s.add_development_dependency('rake')
