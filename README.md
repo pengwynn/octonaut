@@ -23,7 +23,6 @@ gem install octonaut
 ### Example usage
 ```
 $ octonaut
-
 NAME
     octonaut - Octokit-powered CLI for GitHub
 
@@ -31,6 +30,7 @@ SYNOPSIS
     octonaut [global options] command [command options] [arguments...]
 
 GLOBAL OPTIONS
+    -a, --[no-]auto_traversal      - Automatically fetch all pages of paginated results
     --help                         - Show this message
     -n, --[no-]netrc               - Use .netrc file for authentication
     -p, --password=arg             - GitHub password (default: ********)
@@ -38,20 +38,19 @@ GLOBAL OPTIONS
     -u, --login=arg                - GitHub login (default: none)
 
 COMMANDS
-    browse           - Browse resource on github.com
-    follow           - Follow a user
-    followers        - View followers for a user
-    following        - View who a user is following
-    follows          - Check to see if a user follows another
-    help             - Shows a list of commands or help for one command
-    hit_me           -
-    me               - View your profile
-    repo, repository -
-    star             -
-    starred          -
-    unfollow         - Unfollow a user
-    unstar           -
-    user, whois      - View profile for a user
+    browse              - Browse resource on github.com
+    follow              - Follow a user
+    followers           - View followers for a user
+    following           - View who a user is following
+    follows             - Check to see if a user follows another
+    help                - Shows a list of commands or help for one command
+    langs, languages    - Display languages for a repo
+    me                  - View your profile
+    repo, repository    - Display details for a repository
+    repos, repositories - List repositories for a user or organization
+    say                 - An plugin method
+    unfollow            - Unfollow a user
+    user, whois         - View profile for a user
 ```
 
 View a user's profile:
