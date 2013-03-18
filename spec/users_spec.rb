@@ -33,7 +33,7 @@ describe Octonaut do
       Octonaut.run %w(whois defunktzzz)
 
       expect(request).to have_been_made
-      expect($stdout.string).to include("User defunktzzz not found")
+      expect($stdout.string).to include("User or organization defunktzzz not found")
     end
 
   end
