@@ -17,6 +17,7 @@ spec = Gem::Specification.new do |s|
   s.require_paths << 'lib'
   s.bindir = 'bin'
   s.executables << 'octonaut'
+  s.add_dependency('gli','~> 2.5.5')
   s.add_dependency('octokit', '~> 1.22.0')
   s.add_dependency('launchy')
   s.add_development_dependency('rake')
@@ -27,6 +28,5 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency('rspec-mocks', '~> 2.12.0')
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'webmock'
-  s.add_runtime_dependency('gli','2.5.2')
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 end

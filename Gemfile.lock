@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     octonaut (0.0.1)
-      gli (= 2.5.2)
+      gli (~> 2.5.5)
       launchy
       octokit (~> 1.22.0)
 
@@ -25,7 +25,7 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     gherkin (2.11.5)
       json (>= 1.4.6)
-    gli (2.5.2)
+    gli (2.5.5)
     guard (1.5.4)
       listen (>= 0.4.2)
       lumberjack (>= 1.0.2)
