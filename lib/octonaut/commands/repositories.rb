@@ -10,7 +10,7 @@ module Octonaut
     end
   end
 
-  desc "Display details for a repository"
+  desc "List repositories for a user or organization"
   arg_name 'login', :optional
   command [:repos, :repositories] do |c|
     c.desc "Filter repos by type: all, owner, member, public, private"
