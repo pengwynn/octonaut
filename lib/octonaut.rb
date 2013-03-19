@@ -11,14 +11,30 @@ module Octonaut
   extend Octonaut::Printer
   extend Octonaut::Helpers
 
+  def self.config_path
+    path = if ENV['OCTONAUT_ENV'] == 'TEST'
+      'tmp/fakehome'
+    else
+      ENV['HOME']
+    end
+
+    File.expand_path(File.join(path, '.octonaut'))
+  end
+
   program_desc 'Octokit-powered CLI for GitHub'
   commands_from 'octonaut/commands'
-  commands_from File.join(ENV['HOME'], '.octonaut', 'plugins')
+  if plugins_path = ENV['OCTONAUT_PLUGINS_PATH']
+    commands_from File.expand_path(plugins_path)
+  end
 
+  config_file Octonaut.config_path
 
   desc 'Use .netrc file for authentication'
   default_value false
   switch [:n, :netrc]
+
+  desc '.netrc file for authentication'
+  flag "netrc-file"
 
   desc 'GitHub login'
   flag [:u, :login]
@@ -58,9 +74,13 @@ module Octonaut
   end
 
   def self.client(global, options)
-    opts = global.merge(options).
+    opts = global
+    netrc_path = global.delete("netrc-file")
+    opts[:netrc] = netrc_path if netrc_path
+    opts.merge!(options).
       select {|k, v| Octokit::Configuration::VALID_OPTIONS_KEYS.include?(k) }
     Octokit::Client.new(opts)
   end
+
 
 end
