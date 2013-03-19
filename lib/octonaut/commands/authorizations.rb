@@ -28,6 +28,7 @@ module Octonaut
   desc "Manage tokens"
   command [:tokens, :authorizations] do |c|
     c.default_command :ls
+
     c.desc "List GitHub API tokens"
     c.command [:ls, :list] do |ls|
       ls.action do |global,options,args|
@@ -36,6 +37,18 @@ module Octonaut
         ls_tokens @client.authorizations
       end
     end
+
   end
 
+  desc "List scopes for a token"
+  arg_name "token"
+  command :scopes do |c|
+    c.action do |global,options,args|
+      token = args.shift
+
+      raise ArgumentError.new "Token required" unless token
+
+      puts (Octokit.scopes(token).join(', '))
+    end
+  end
 end

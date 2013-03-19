@@ -13,14 +13,15 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('tokens.ls').read)
     end
 
-    xit "displays scopes for a token" do
+    it "displays scopes for a token" do
 
-      request = stub_get("https://defunkt:il0veruby@api.github.com/user").
-        to_return(json_response("tokens.json", {"X-OAuth-Scopes" => "repo, user"}))
+      request = stub_get("https://@api.github.com/user").
+        with(:headers => {"Authorization" => "token e46e749d1c727ff18b7fa403e924e58407fd9ac7"}).
+        to_return(json_response("user.json", {"X-OAuth-Scopes" => "repo, user"}))
 
-      Octonaut.run %w(-u defunkt -p il0veruby tokens)
+      Octonaut.run %w(scopes e46e749d1c727ff18b7fa403e924e58407fd9ac7 )
 
-      expect($stdout.string).to eq("repo, user")
+      expect($stdout.string).to include("repo, user")
 
     end
 
