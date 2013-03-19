@@ -34,15 +34,18 @@ describe Octonaut do
     end
 
     xit "renders a directory tree of repository contents" do
-
+      # need more smarts in Octokit for this
     end
 
-    xit "gets text content of a file" do
+    it "gets contents of a file" do
+      request = stub_get("/repos/pengwynn/octonaut/contents/README.md").
+        to_return(:headers => {"Content-Type" => "application/vnd.github.raw; charset=utf-8"},
+                  :body => fixture("readme.src"))
 
-    end
+      Octonaut.run %w(contents pengwynn/octonaut README.md)
 
-    xit "gets a binary file" do
-
+      expect(request).to have_been_made
+      expect($stdout.string).to eq(fixture('readme.src').read)
     end
 
     xit "gets an archive link" do
