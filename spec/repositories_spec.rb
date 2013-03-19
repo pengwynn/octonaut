@@ -2,18 +2,6 @@ require 'spec_helper'
 
 describe Octonaut do
 
-  before :each do
-    @old_stderr = $stderr
-    $stderr = StringIO.new
-    @old_stdout = $stdout
-    $stdout = StringIO.new
-  end
-
-  after :each do
-    $stderr = @old_stderr
-    $stdout = @old_stdout
-  end
-
   context "repositories" do
 
     it "displays repository information" do

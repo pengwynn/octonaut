@@ -4,6 +4,24 @@ ENV['OCTONAUT_PLUGINS_PATH'] = 'tmp/fakehome/plugins'
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.order = 'random'
+
+  config.before :each do
+    @old_stderr = $stderr
+    $stderr = StringIO.new
+    @old_stdout = $stdout
+    $stdout = StringIO.new
+    @old_stdin = $stdin
+    $stdin = StringIO.new
+    FileUtils.rm_f File.expand_path(Octonaut.config_path)
+  end
+
+  config.after :each do
+    $stderr = @old_stderr
+    $stdout = @old_stdout
+    $stdin  = @old_stdin
+    FileUtils.rm_f File.expand_path(Octonaut.config_path)
+  end
+
 end
 
 require 'octonaut'
@@ -62,12 +80,12 @@ def fixture(file)
   File.new(fixture_path + '/' + file)
 end
 
-def json_response(file)
+def json_response(file, headers = {})
   {
     :body => fixture(file),
     :headers => {
       :content_type => 'application/json; charset=utf-8'
-    }
+    }.merge(headers)
   }
 end
 

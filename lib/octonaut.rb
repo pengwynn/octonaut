@@ -78,6 +78,13 @@ module Octonaut
     opts = global
     netrc_path = global.delete("netrc-file")
     opts[:netrc] = netrc_path if netrc_path
+    # drop OAuth token if basic auth is present
+    if (opts['login'] && opts['password']) || opts[:netrc]
+      %w(t token oauth_token).each do |k|
+        opts.delete(k)
+        opts.delete(k.to_sym)
+      end
+    end
     opts.merge!(options).
       select {|k, v| Octokit::Configuration::VALID_OPTIONS_KEYS.include?(k) }
     Octokit::Client.new(opts)

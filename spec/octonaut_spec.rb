@@ -2,22 +2,6 @@ require 'spec_helper'
 
 describe Octonaut do
 
-  before :each do
-    @old_stderr = $stderr
-    $stderr = StringIO.new
-    @old_stdout = $stdout
-    $stdout = StringIO.new
-
-    FileUtils.rm_f File.expand_path(Octonaut.config_path)
-  end
-
-  after :each do
-    $stderr = @old_stderr
-    $stdout = @old_stdout
-
-    FileUtils.rm_f File.expand_path(Octonaut.config_path)
-  end
-
   context "with config files" do
     it "can init a config file" do
       Octonaut.run %w(-t 123456 initconfig)
