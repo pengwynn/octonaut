@@ -36,11 +36,11 @@ describe Octonaut do
     end
 
     xit "updates a token" do
-
+      # wait on hypermedia Octokit
     end
 
     xit "deletes a token" do
-
+      # wait on hypermedia Octokit
     end
   end
 
