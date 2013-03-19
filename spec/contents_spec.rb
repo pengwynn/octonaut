@@ -26,6 +26,13 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('readme.html').read)
     end
 
+    it "renders a README on a ref" do
+      Octokit::Client.any_instance.should_receive(:readme).
+        with("pengwynn/octonaut", :ref => "some-branch", :accept => "application/vnd.github.html")
+
+      Octonaut.run %w(readme -f html --ref some-branch pengwynn/octonaut)
+    end
+
     xit "renders a directory tree of repository contents" do
 
     end
