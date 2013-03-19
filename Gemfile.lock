@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    octonaut (0.0.1)
+    octonaut (0.0.2)
       gli (~> 2.5.5)
       launchy
       octokit (~> 1.22.0)
