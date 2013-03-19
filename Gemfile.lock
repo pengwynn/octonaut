@@ -3,7 +3,8 @@ PATH
   specs:
     octonaut (0.0.2)
       gli (~> 2.5.5)
-      launchy
+      highline (~> 1.6.15)
+      launchy (~> 2.2.0)
       octokit (~> 1.22.0)
 
 GEM
@@ -35,6 +36,7 @@ GEM
       cucumber (>= 1.2.0)
       guard (>= 1.1.0)
     hashie (1.2.0)
+    highline (1.6.15)
     json (1.7.5)
     launchy (2.2.0)
       addressable (~> 2.3)
