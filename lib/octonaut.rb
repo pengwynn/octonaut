@@ -1,5 +1,6 @@
 require 'csv'
 require 'gli'
+require 'highline/import'
 require 'launchy'
 require 'octokit'
 require 'octonaut/printer'
