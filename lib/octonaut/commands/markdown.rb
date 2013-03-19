@@ -16,8 +16,16 @@ module Octonaut
     c.action do |global,options,args|
       raise ArgumentError.new "Valid mode options are #{MODE_OPTS.join(', ')}" unless MODE_OPTS.include? options[:mode]
 
-      opts = options.select { |k,v| !v.nil? }
-      response = @client.markdown args.shift, opts
+      src  = args.shift
+      src  = $stdin.gets if src.nil?
+      opts = {}
+      if mode = options.fetch(:mode, nil)
+        opts[:mode] = mode
+      end
+      if context = options.fetch(:context, nil)
+        opts[:context] = context
+      end
+      response = @client.markdown src, opts
 
       puts response
     end
