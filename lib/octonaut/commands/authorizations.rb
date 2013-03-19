@@ -1,6 +1,6 @@
 module Octonaut
 
-  desc "(Create and) store an API token using username and password"
+  desc "Create and store an API token using username and password"
   command :authorize do |c|
     c.action do |global,options,args|
       username = ask("GitHub username:      ")
@@ -21,6 +21,19 @@ module Octonaut
         end
       else
         Octonaut.run ["-t", authorization.token, "initconfig"]
+      end
+    end
+  end
+
+  desc "Manage tokens"
+  command [:tokens, :authorizations] do |c|
+    c.default_command :ls
+    c.desc "List GitHub API tokens"
+    c.command [:ls, :list] do |ls|
+      ls.action do |global,options,args|
+        raise ArgumentError.new "Basic Authentication required" unless @client.authenticated?
+
+        ls_tokens @client.authorizations
       end
     end
   end
