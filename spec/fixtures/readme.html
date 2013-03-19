@@ -1,0 +1,187 @@
+<div class="announce instapaper_body md" data-path="README.md" id="readme"><article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a name="octonaut" class="anchor" href="#octonaut"><span class="mini-icon mini-icon-link"></span></a>Octonaut</h1>
+
+<p>A little CLI sugar for the GitHub API, built with <a href="https://github.com/davetron5000/gli">gli</a> and <a href="https://github.com/pengwynn/octokit">Octokit</a>.</p>
+
+<p><strong>Still early. Rapidly evolving.</strong> Why not <a href="https://github.com/pengwynn/octonaut/blob/master/CONTRIBUTING.md">help out</a>?</p>
+
+<h3>
+<a name="why-not-hub" class="anchor" href="#why-not-hub"><span class="mini-icon mini-icon-link"></span></a>Why not <code>hub</code>?</h3>
+
+<p><a href="https://github.com/defunkt/hub">hub</a> is great, you should use it; however, <code>hub</code> primarily focuses on smoothing the
+git workflow for GitHub and most commands are in the context of a GitHub
+repository.</p>
+
+<p>Octonaut is a more general-purpose CLI for the GitHub API. Oh, and <a href="#extend-with-plugins">plugins</a>.</p>
+
+<h3>
+<a name="installation" class="anchor" href="#installation"><span class="mini-icon mini-icon-link"></span></a>Installation</h3>
+
+<p>Install via RubyGems:</p>
+
+<pre><code>gem install octonaut
+</code></pre>
+
+<h3>
+<a name="example-usage" class="anchor" href="#example-usage"><span class="mini-icon mini-icon-link"></span></a>Example usage</h3>
+
+<pre><code>$ octonaut
+NAME
+    octonaut - Octokit-powered CLI for GitHub
+
+SYNOPSIS
+    octonaut [global options] command [command options] [arguments...]
+
+GLOBAL OPTIONS
+    -a, --[no-]auto_traversal      - Automatically fetch all pages of paginated results
+    --help                         - Show this message
+    -n, --[no-]netrc               - Use .netrc file for authentication
+    --netrc-file=arg               - .netrc file for authentication (default: none)
+    -p, --password=arg             - GitHub password (default: ********)
+    -t, --oauth_token, --token=arg - GitHub API token (default: ********)
+    -u, --login=arg                - GitHub login (default: none)
+
+COMMANDS
+    browse              - Browse resource on github.com
+    follow              - Follow a user
+    followers           - View followers for a user
+    following           - View who a user is following
+    follows             - Check to see if a user follows another
+    help                - Shows a list of commands or help for one command
+    initconfig          - Initialize the config file using current global options
+    langs, languages    - Display languages for a repo
+    me                  - View your profile
+    repo, repository    - Display details for a repository
+    repos, repositories - List repositories for a user or organization
+    unfollow            - Unfollow a user
+    user, whois         - View profile for a user
+</code></pre>
+
+<p>View a user's profile:</p>
+
+<pre><code>$ octonaut whois cloudhead
+       ID 40774
+   JOINED 2008-12-16T15:09:49Z
+    LOGIN cloudhead
+     NAME Alexis Sellier
+  COMPANY SoundCloud, Ltd.
+ LOCATION Berlin
+FOLLOWERS 2347
+FOLLOWING 48
+ HIREABLE true
+      URL http://twitter.com/cloudhead
+</code></pre>
+
+<p>Browse a user on github.com in your default browser:</p>
+
+<pre><code>$ octonaut browse cloudhead
+</code></pre>
+
+<p>List followers:</p>
+
+<pre><code>$ octonaut followers pengwynn
+krisbulman
+camdub
+cglee
+nextmat
+zachinglis
+seaofclouds
+njonsson
+davidnorth
+polomasta
+webiest
+mchelen
+brogers
+marclove
+adamstac
+marshall
+asenchi
+piyush
+rmetzler
+nileshtrivedi
+sferik
+jimmybaker
+jnunemaker
+peterberkenbosch
+leah
+jakestutzman
+nkabbara
+etagwerker
+vagostino
+johan--
+bry4n
+...
+</code></pre>
+
+<p>Follow a user:</p>
+
+<pre><code>$ octonaut follow linus
+Followed linus.
+</code></pre>
+
+<p>Unfollow a user:</p>
+
+<pre><code>$ octonaut unfollow pengwynn
+Unfollowed pengwynn.
+</code></pre>
+
+<p>Convert some markdown:</p>
+
+<pre><code>$ octonaut markdown "# Header #"
+&lt;h1&gt;Header&lt;/h1&gt;
+</code></pre>
+
+<h2>
+<a name="extend-with-plugins" class="anchor" href="#extend-with-plugins"><span class="mini-icon mini-icon-link"></span></a>Extend with plugins</h2>
+
+<p>Octonaut makes it simple to extend the CLI with new commands just by adding
+some Ruby files to <code>~/.octonaut/plugins</code>:</p>
+
+<pre><code>$ cat ~/.octonaut_plugins/test.rb
+module Octonaut
+
+  desc 'An plugin method'
+  arg_name 'text'
+  command :say do |c|
+    c.action do |global,options,args|
+      puts @client.say args.shift
+    end
+  end
+end
+
+$ export OCTONAUT_PLUGINS_PATH=~./octonaut_plugins
+$ octonaut say "hello from plugins"
+
+           MMM.           .MMM
+           MMMMMMMMMMMMMMMMMMM
+           MMMMMMMMMMMMMMMMMMM      ____________________
+          MMMMMMMMMMMMMMMMMMMMM    |                    |
+         MMMMMMMMMMMMMMMMMMMMMMM   | hello from plugins |
+        MMMMMMMMMMMMMMMMMMMMMMMM   |_   ________________|
+        MMMM::- -:::::::- -::MMMM    |/
+         MM~:~   ~:::::~   ~:~MM
+    .. MMMMM::. .:::+:::. .::MMMMM ..
+          .MM::::: ._. :::::MM.
+             MMMM;:::::;MMMM
+      -MM        MMMMMMM
+      ^  M+     MMMMMMMMM
+          MMMMMMM MM MM MM
+               MM MM MM MM
+               MM MM MM MM
+            .~~MM~MM~MM~MM~~.
+         ~~~~MM:~MM~~~MM~:MM~~~~
+        ~~~~~~==~==~~~==~==~~~~~~
+         ~~~~~~==~==~==~==~~~~~~
+             :~==~==~==~==~~
+</code></pre>
+
+<h2>
+<a name="inspiration" class="anchor" href="#inspiration"><span class="mini-icon mini-icon-link"></span></a>Inspiration</h2>
+
+<p>Octonaut is inspired by <a href="https://github.com/sferik/t"><code>t</code>, the awesome Twitter CLI</a> from <a href="https://github.com/sferik">Erik Michaels-Ober</a>.</p>
+
+<h2>
+<a name="copyright" class="anchor" href="#copyright"><span class="mini-icon mini-icon-link"></span></a>Copyright</h2>
+
+<p>Copyright (c) 2013 Wynn Netherland. See <a href="https://github.com/pengwynn/octonaut/blob/master/LICENSE.md">LICENSE</a> for details.</p></article></div>
+
