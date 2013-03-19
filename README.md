@@ -124,6 +124,12 @@ $ octonaut unfollow pengwynn
 Unfollowed pengwynn.
 ```
 
+Convert some markdown:
+```
+$ octonaut markdown "# Header #"
+<h1>Header</h1>
+```
+
 ## Extend with plugins
 
 Octonaut makes it simple to extend the CLI with new commands just by adding
