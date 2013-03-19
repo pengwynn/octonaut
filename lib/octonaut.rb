@@ -18,13 +18,16 @@ module Octonaut
       ENV['HOME']
     end
 
-    File.join(path, '.octonaut')
+    File.expand_path(File.join(path, '.octonaut'))
   end
 
   program_desc 'Octokit-powered CLI for GitHub'
   commands_from 'octonaut/commands'
-  commands_from File.join(config_path, 'plugins')
+  if plugins_path = ENV['OCTONAUT_PLUGINS_PATH']
+    commands_from File.expand_path(plugins_path)
+  end
 
+  config_file Octonaut.config_path
 
   desc 'Use .netrc file for authentication'
   default_value false

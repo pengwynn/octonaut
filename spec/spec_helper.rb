@@ -1,4 +1,5 @@
-ENV['OCTONAUT_ENV'] = 'TEST'
+ENV['OCTONAUT_ENV']          = 'TEST'
+ENV['OCTONAUT_PLUGINS_PATH'] = 'tmp/fakehome/plugins'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

@@ -14,9 +14,27 @@ describe Octonaut do
     $stdout = @old_stdout
   end
 
-  context "with an empty config file" do
-    it "works" do
-      expect(true).to be_true
+  context "with config files" do
+    before do
+      FileUtils.rm_f File.expand_path(Octonaut.config_path)
+    end
+
+    after do
+      FileUtils.rm_f File.expand_path(Octonaut.config_path)
+    end
+
+    it "can init a config file" do
+      Octonaut.run %w(-t 123456 initconfig)
+      info = YAML::load_file(Octonaut.config_path)
+      expect(info['t']).to eq "123456"
+    end
+  end
+
+  context "plugins" do
+    it "finds plugins" do
+      Octonaut.run %w(foo)
+
+      expect($stdout.string).to include("bar")
     end
   end
 
