@@ -6,15 +6,15 @@ A little CLI sugar for the GitHub API, built with [gli][] and [Octokit][].
 
 ### Why not `hub`?
 
-[hub][] is great, you should use it. But hub focuses mostly on smoothing the
+[hub][] is great, you should use it; however, `hub` primarily focuses on smoothing the
 git workflow for GitHub and most commands are in the context of a GitHub
 repository.
 
-Octonaut is more general purpose CLI for the GitHub API. Oh and [plugins][].
+Octonaut is a more general-purpose CLI for the GitHub API. Oh, and [plugins][].
 
 ### Installation
 
-Install via Rubygems:
+Install via RubyGems:
 
 ```
 gem install octonaut
