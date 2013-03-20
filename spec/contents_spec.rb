@@ -48,7 +48,14 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('readme.src').read)
     end
 
-    xit "gets an archive link" do
+    it "gets an archive link" do
+      url = "https://nodeload.github.com/pengwynn/octonaut/legacy.zip/master"
+      Octokit::Client.any_instance.should_receive(:archive_link).
+        with("pengwynn/octonaut", :format => "zipball", :ref => "master").
+        and_return(url)
+
+      Octonaut.run %w(archive_link -f zip pengwynn/octonaut)
+      expect($stdout.string).to eq(url)
 
     end
 

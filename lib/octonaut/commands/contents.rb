@@ -45,6 +45,26 @@ module Octonaut
 
       puts @client.contents repo, opts
     end
+  end
 
+  desc "Get repository tarball or zipball archive URL"
+  arg_name "repo"
+  command :archive_link do |c|
+    c.desc "Archive format"
+    c.default_value "tar"
+    c.flag [:f, :format]
+    c.desc "Ref (branch name or commit SHA)"
+    c.default_value "master"
+    c.flag [:ref]
+    c.action do |global,options,args|
+
+      repo = args.shift
+      raise ArgumentError.new "Repository required" if repo.nil?
+
+      opts = {}
+      opts[:format] = "#{options[:format]}ball"
+      opts[:ref]    = options[:ref]
+      print @client.archive_link repo, opts
+    end
   end
 end
