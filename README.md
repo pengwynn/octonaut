@@ -39,19 +39,26 @@ GLOBAL OPTIONS
     -u, --login=arg                - GitHub login (default: none)
 
 COMMANDS
-    browse              - Browse resource on github.com
-    follow              - Follow a user
-    followers           - View followers for a user
-    following           - View who a user is following
-    follows             - Check to see if a user follows another
-    help                - Shows a list of commands or help for one command
-    initconfig          - Initialize the config file using current global options
-    langs, languages    - Display languages for a repo
-    me                  - View your profile
-    repo, repository    - Display details for a repository
-    repos, repositories - List repositories for a user or organization
-    unfollow            - Unfollow a user
-    user, whois         - View profile for a user
+    archive_link           - Get repository tarball or zipball archive URL
+    authorize              - Create and store an API token using username and password
+    browse                 - Browse resource on github.com
+    contents               - Get repository contents
+    follow                 - Follow a user
+    followers              - View followers for a user
+    following              - View who a user is following
+    follows                - Check to see if a user follows another
+    help                   - Shows a list of commands or help for one command
+    initconfig             - Initialize the config file using current global options
+    langs, languages       - Display languages for a repo
+    markdown, md           - Convert markdown to HTML
+    me                     - View your profile
+    readme                 - View README for repository
+    repo, repository       - Display details for a repository
+    repos, repositories    - List repositories for a user or organization
+    scopes                 - List scopes for a token
+    tokens, authorizations - Manage tokens
+    unfollow               - Unfollow a user
+    user, whois            - View profile for a user
 ```
 
 View a user's profile:
@@ -129,6 +136,13 @@ Convert some markdown:
 $ octonaut markdown "# Header #"
 <h1>Header</h1>
 ```
+Convert markdown using STDIN
+```
+$ echo "Fixed in #3 " | be bin/octonaut markdown -c pengwynn/octonaut
+<p>Fixed in <a href="https://github.com/pengwynn/octonaut/issues/3" class="issue-link" title="authorize command">#3</a> </p>"
+```
+
+... and [much more][commands].
 
 ## Extend with plugins
 
@@ -190,3 +204,4 @@ Copyright (c) 2013 Wynn Netherland. See [LICENSE][] for details.
 [t]: https://github.com/sferik/t
 [sferik]: https://github.com/sferik
 [LICENSE]: https://github.com/pengwynn/octonaut/blob/master/LICENSE.md
+[commands]: https://github.com/pengwynn/octonaut/tree/master/lib/octonaut/commands
