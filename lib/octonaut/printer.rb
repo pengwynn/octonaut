@@ -1,11 +1,13 @@
+require 'octonaut/printers/authorizations'
 require 'octonaut/printers/organizations'
 require 'octonaut/printers/users'
 require 'octonaut/printers/repositories'
 
 module Octonaut
   module Printer
-    include Octonaut::Printers::Users
+    include Octonaut::Printers::Authorizations
     include Octonaut::Printers::Repositories
+    include Octonaut::Printers::Users
 
     def print_table(data)
       data.each { | key, value | puts "#{key.rjust(data.keys.map(&:length).max)} #{value}" }

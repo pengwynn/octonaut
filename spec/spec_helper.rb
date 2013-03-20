@@ -79,12 +79,12 @@ def fixture(file)
   File.new(fixture_path + '/' + file)
 end
 
-def json_response(file)
+def json_response(file, headers = {})
   {
     :body => fixture(file),
     :headers => {
       :content_type => 'application/json; charset=utf-8'
-    }
+    }.merge(headers)
   }
 end
 

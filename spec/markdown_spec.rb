@@ -2,21 +2,6 @@ require 'spec_helper'
 
 describe Octonaut do
 
-  before :each do
-    @old_stderr = $stderr
-    $stderr = StringIO.new
-    @old_stdout = $stdout
-    $stdout = StringIO.new
-    @old_stdin = $stdin
-    $stdin = StringIO.new
-  end
-
-  after :each do
-    $stderr = @old_stderr
-    $stdout = @old_stdout
-    $stdin  = @old_stdin
-  end
-
   context "markdown" do
 
     it "renders gfm markdown" do
