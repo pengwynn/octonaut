@@ -54,7 +54,7 @@ describe Octonaut do
         with("pengwynn/octonaut", :format => "zipball", :ref => "master").
         and_return(url)
 
-      Octonaut.run %w(archive_link -f zip pengwynn/octonaut)
+      Octonaut.run %w(archive-link -f zip pengwynn/octonaut)
       expect($stdout.string).to eq(url)
 
     end

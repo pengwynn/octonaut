@@ -39,7 +39,7 @@ GLOBAL OPTIONS
     -u, --login=arg                - GitHub login (default: none)
 
 COMMANDS
-    archive_link           - Get repository tarball or zipball archive URL
+    archive-link           - Get repository tarball or zipball archive URL
     authorize              - Create and store an API token using username and password
     browse                 - Browse resource on github.com
     contents               - Get repository contents
@@ -56,9 +56,17 @@ COMMANDS
     repo, repository       - Display details for a repository
     repos, repositories    - List repositories for a user or organization
     scopes                 - List scopes for a token
+    star                   - Star a repository
+    stargazers             - List stargazers
+    starred                - List or check starred repositories for a user
+    subscribe              - Subscribe to a repository
+    subscribers            - List subscribers for a repository
+    subscriptions          - List user repository subscriptions
     tokens, authorizations - Manage tokens
     unfollow               - Unfollow a user
-    user, whois            - View profile for a user
+    unstar                 - Unstar a repository
+    unsubscribe            - Unsubscribe to a repository
+    user, whois            - Manage users
 ```
 
 View a user's profile:
@@ -138,7 +146,7 @@ $ octonaut markdown "# Header #"
 ```
 Convert markdown using STDIN
 ```
-$ echo "Fixed in #3 " | be bin/octonaut markdown -c pengwynn/octonaut
+$ echo "Fixed in #3 " | octonaut markdown -c pengwynn/octonaut
 <p>Fixed in <a href="https://github.com/pengwynn/octonaut/issues/3" class="issue-link" title="authorize command">#3</a> </p>"
 ```
 
@@ -147,7 +155,7 @@ $ echo "Fixed in #3 " | be bin/octonaut markdown -c pengwynn/octonaut
 ## Extend with plugins
 
 Octonaut makes it simple to extend the CLI with new commands just by adding
-some Ruby files to `~/.octonaut/plugins`:
+some Ruby files to `~/.octonaut_plugins`:
 
 ```
 $ cat ~/.octonaut_plugins/test.rb

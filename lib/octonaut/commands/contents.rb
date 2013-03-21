@@ -49,7 +49,7 @@ module Octonaut
 
   desc "Get repository tarball or zipball archive URL"
   arg_name "repo"
-  command :archive_link do |c|
+  command 'archive-link' do |c|
     c.desc "Archive format"
     c.default_value "tar"
     c.flag [:f, :format]
