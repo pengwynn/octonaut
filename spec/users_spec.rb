@@ -24,6 +24,17 @@ describe Octonaut do
       expect($stdout.string).to include("User or organization defunktzzz not found")
     end
 
+    it "it updates a user profile" do
+      request = stub_patch('https://defunkt:il0veruby@api.github.com/user').
+        with(:email => "c@ozmm.org").
+        to_return(json_response("user.json"))
+
+      Octonaut.run %w(-u defunkt -p il0veruby user update --email c@ozmm.org)
+
+      expect(request).to have_been_made
+      expect($stdout.string).to include("User profile updated")
+    end
+
   end
 
   context "listing followers" do

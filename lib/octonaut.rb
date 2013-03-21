@@ -5,12 +5,14 @@ require 'launchy'
 require 'octokit'
 require 'octonaut/printer'
 require 'octonaut/helpers'
+require 'octonaut/utils'
 require 'octonaut/version'
 
 module Octonaut
   extend GLI::App
   extend Octonaut::Printer
   extend Octonaut::Helpers
+  extend Octonaut::Utils
 
   def self.config_path
     path = if ENV['OCTONAUT_ENV'] == 'TEST'

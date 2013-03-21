@@ -7,24 +7,52 @@ module Octonaut
     end
   end
 
-  desc "View profile for a user"
-  arg_name 'login'
+  desc 'Manage users'
   command [:user, :whois] do |c|
-    c.action do |global,options,args|
-      login = args.shift
-      begin
-        user = @client.user login
-        case user['type']
-        when 'Organization'
-          print_org_table user
-        else
-          print_user_table user
+    c.default_command :show
+    c.desc "View a user profile"
+    c.arg_name 'login'
+    c.command :show do |show|
+      show.action do |global,options,args|
+        login = args.shift
+        begin
+          user = @client.user login
+          case user['type']
+          when 'Organization'
+            print_org_table user
+          else
+            print_user_table user
+          end
+        rescue Octokit::NotFound
+          puts "User or organization #{login} not found"
         end
-      rescue Octokit::NotFound
-        puts "User or organization #{login} not found"
+      end
+    end
+
+    c.desc "Update a user profile"
+    c.command :update do |update|
+
+      update.arg_name "Name", :optional
+      update.flag :name
+      update.arg_name "Email", :optional
+      update.flag :email
+      update.arg_name "Blog", :optional
+      update.flag :blog
+      update.arg_name "Company", :optional
+      update.flag :company
+      update.arg_name "Location", :optional
+      update.flag :location
+      update.arg_name "Hireable", :optional
+      update.switch :hireable
+      update.action do |global,options,args|
+        opts = Octonaut.supplied_flags(options)
+        if @client.update_user(opts)
+          puts "User profile updated"
+        end
       end
     end
   end
+
 
   desc "View followers for a user"
   arg_name 'login', :optional
