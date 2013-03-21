@@ -66,4 +66,61 @@ module Octonaut
       ls_users @client.stargazers(repo)
     end
   end
+
+  desc "Subscribe to a repository"
+  arg_name "repository"
+  command :subscribe do |c|
+    c.desc "Ignore notifications"
+    c.switch [:i, :ignored]
+    c.action do |global,options,args|
+      repo = args.shift
+      raise ArgumentError.new "Repository required" if repo.nil?
+
+      opts = Octonaut.supplied_flags(options).select {|k, v| k == 'ignored'}
+      if @client.update_subscription(repo, opts)
+        message = "Subscribed to #{repo}"
+        message << " and ignored" if opts['ignored']
+        puts message
+      else
+        puts "Could not subscribe to #{repo}"
+      end
+    end
+  end
+
+  desc "Unsubscribe to a repository"
+  arg_name "repository"
+  command :unsubscribe do |c|
+    c.action do |global,options,args|
+      repo = args.shift
+      raise ArgumentError.new "Repository required" if repo.nil?
+
+      if @client.delete_subscription(repo)
+        puts "Unsubscribed to #{repo}"
+      else
+        puts "Could not unsubscribe to #{repo}"
+      end
+    end
+  end
+
+  desc "List subscribers for a repository"
+  arg_name "repository"
+  command :subscribers do |c|
+    c.action do |global,options,args|
+      repo = args.shift
+      raise ArgumentError.new "Repository required" if repo.nil?
+
+      ls_users @client.subscribers(repo)
+    end
+  end
+
+  desc "List user repository subscriptions"
+  arg_name "user", :optional
+  command :subscriptions do |c|
+    c.action do |global,options,args|
+      user = args.shift || @client.login
+      raise ArgumentError.new "User or authentication required" if user.nil?
+      ls_repos @client.subscriptions(user)
+    end
+  end
+
 end
