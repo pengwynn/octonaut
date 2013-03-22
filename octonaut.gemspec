@@ -21,13 +21,5 @@ spec = Gem::Specification.new do |s|
   s.add_dependency('octokit', '~> 1.22.0')
   s.add_dependency('launchy', '~> 2.2.0')
   s.add_dependency('highline', '~> 1.6.15')
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rdoc')
-  s.add_development_dependency('guard-cucumber')
-  s.add_development_dependency('rb-fsevent', '~> 0.9.1')
-  s.add_development_dependency('rspec', '~> 2.12.0')
-  s.add_development_dependency('rspec-mocks', '~> 2.12.0')
-  s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'webmock'
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 end
