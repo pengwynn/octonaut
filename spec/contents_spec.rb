@@ -33,10 +33,6 @@ describe Octonaut do
       Octonaut.run %w(readme -f html --ref some-branch pengwynn/octonaut)
     end
 
-    xit "renders a directory tree of repository contents" do
-      # need more smarts in Octokit for this
-    end
-
     it "gets contents of a file" do
       request = stub_get("/repos/pengwynn/octonaut/contents/README.md").
         to_return(:headers => {"Content-Type" => "application/vnd.github.raw; charset=utf-8"},
