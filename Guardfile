@@ -13,6 +13,6 @@ guard 'rspec' do
     # Alternately you can also configure *success_message_format*,
     # *pending_message_format*, *failed_message_format*
     :line_separator => ' > ', # since we are single line we need a separator
-    :color_location => 'pane-active-border-fg' # to customize which tmux element will change color
+    :color_location => '-a pane-active-border-fg' # to customize which tmux element will change color
 end
 

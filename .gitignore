@@ -1,3 +1,4 @@
 results.html
 pkg
 .rake_tasks
+tmp/rspec_guard_result
