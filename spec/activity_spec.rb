@@ -4,6 +4,17 @@ describe Octonaut do
 
   context "stars" do
 
+    it "requires a username to list stars" do
+      request = stub_get("https://api.github.com/users/pengwynn/starred").
+        to_return(json_response("starred.json"))
+
+      Octonaut.run %w(starred)
+      expect(request).to have_not_been_made
+
+      expect($stdout.string).to eq("Please authenticate or provide a GitHub login\n")
+    end
+
+
     it "lists your starred repositories" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/starred").
         to_return(json_response("starred.json"))
@@ -24,16 +35,6 @@ describe Octonaut do
       expect(request).to have_been_made
 
       expect($stdout.string).to eq(fixture('starred.ls').read)
-    end
-
-    it "requires a username to list stars" do
-      request = stub_get("https://api.github.com/users/pengwynn/starred").
-        to_return(json_response("starred.json"))
-
-      Octonaut.run %w(starred)
-      expect(request).to have_not_been_made
-
-      expect($stdout.string).to eq("Please authenticate or provide a GitHub login\n")
     end
 
     it "stars a repository" do

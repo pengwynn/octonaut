@@ -92,5 +92,4 @@ module Octonaut
     Octokit::Client.new(opts)
   end
 
-
 end

@@ -5,17 +5,6 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.order = 'random'
 
-  config.before do
-    ENV['OCTONAUT_ENV']          = 'TEST'
-    @plugins_path = ENV['OCTONAUT_PLUGINS_PATH']
-    ENV['OCTONAUT_PLUGINS_PATH'] = 'tmp/fakehome/plugins'
-  end
-
-  config.after do
-    ENV.delete('OCTONAUT_ENV')
-    ENV['OCTONAUT_PLUGINS_PATH'] = @plugins_path
-  end
-
   config.before :each do
     @old_stderr = $stderr
     $stderr = StringIO.new
