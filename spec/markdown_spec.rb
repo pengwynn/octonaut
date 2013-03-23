@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Octonaut do
+describe "octonaut" do
 
   context "markdown" do
 

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Octonaut do
+describe "octonaut" do
 
-  context "repositories" do
+  context "repository" do
 
     it "displays repository information" do
       request = stub_get('/repos/defunkt/dotjs').
@@ -16,6 +16,10 @@ describe Octonaut do
 
     end
 
+  end
+
+  context "languages" do
+
     it "displays languages for a repository" do
       request = stub_get('/repos/pengwynn/dotfiles/languages').
         to_return(json_response("languages.json"))
@@ -25,20 +29,21 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('languages.table').read)
     end
 
-    context "listing repositories" do
+  end
 
-      it "lists your repositories" do
-        request = stub_get("https://defunkt:il0veruby@api.github.com/user/repos").
-          to_return(json_response("repositories.json"))
 
-        Octonaut.run %w(-u defunkt -p il0veruby repos)
-        expect(request).to have_been_made
 
-        expect($stdout.string).to eq(fixture('repositories.ls').read)
-      end
+  context "repositories" do
 
+    it "lists your repositories" do
+      request = stub_get("https://defunkt:il0veruby@api.github.com/user/repos").
+        to_return(json_response("repositories.json"))
+
+      Octonaut.run %w(-u defunkt -p il0veruby repos)
+      expect(request).to have_been_made
+
+      expect($stdout.string).to eq(fixture('repositories.ls').read)
     end
 
   end
-
 end

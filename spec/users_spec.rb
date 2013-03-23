@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Octonaut do
+describe "octonaut" do
 
-  context "users" do
+  context "whois" do
 
     it "looks up users by login" do
       request = stub_get('/users/defunkt').
@@ -24,6 +24,10 @@ describe Octonaut do
       expect($stdout.string).to include("User or organization defunktzzz not found")
     end
 
+  end
+
+  context "user" do
+
     it "it updates a user profile" do
       request = stub_patch('https://defunkt:il0veruby@api.github.com/user').
         with(:email => "c@ozmm.org").
@@ -37,9 +41,9 @@ describe Octonaut do
 
   end
 
-  context "listing followers" do
+  context "followers" do
 
-    it "should list followers for the current user" do
+    it "lists followers for the current user" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/followers").
         to_return(json_response("users.json"))
 
@@ -48,7 +52,7 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('users.ls').read)
     end
 
-    it "should list followers for a user" do
+    it "lists followers for a user" do
       request = stub_get("https://api.github.com/users/pengwynn/followers").
         to_return(json_response("users.json"))
 
@@ -59,9 +63,9 @@ describe Octonaut do
 
   end
 
-  context "listing following" do
+  context "following" do
 
-    it "should list who the current users follows" do
+    it "lists who the current users follows" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/following").
         to_return(json_response("users.json"))
 
@@ -70,7 +74,7 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('users.ls').read)
     end
 
-    it "should list followers for a user" do
+    it "lists followers for a user" do
       request = stub_get("https://api.github.com/users/pengwynn/following").
         to_return(json_response("users.json"))
 
@@ -81,8 +85,9 @@ describe Octonaut do
 
   end
 
-  context "checking if a user follows another" do
-    it "should check if the current user follows a user" do
+  context "follows" do
+
+    it "checks if the current user follows a user" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/user/following/pengwynn").
         to_return(:status => 204)
 
@@ -92,9 +97,9 @@ describe Octonaut do
     end
   end
 
-  context "following users" do
+  context "follow" do
 
-    it "should follow users" do
+    it "follows users" do
 
       request = stub_put("https://defunkt:il0veruby@api.github.com/user/following/mojombo").
         to_return(:status => 204)
@@ -113,7 +118,11 @@ describe Octonaut do
 
     end
 
-    it "should unfollow users" do
+  end
+
+  context "unfollow" do
+
+    it "unfollows users" do
 
       request = stub_delete("https://defunkt:il0veruby@api.github.com/user/following/mojombo").
         to_return(:status => 204)
@@ -131,7 +140,7 @@ describe Octonaut do
       expect($stdout.string).to eq("Unfollowed mojombo.\nUnfollowed joeyw.\nUnfollowed linus.\n")
 
     end
-
   end
+
 end
 

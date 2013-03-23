@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Octonaut do
+describe "octonaut" do
 
-  context "authorizations" do
+  context "tokens" do
 
     it "lists tokens" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/authorizations").
@@ -12,6 +12,10 @@ describe Octonaut do
 
       expect($stdout.string).to eq(fixture('tokens.ls').read)
     end
+
+  end
+
+  context "scopes" do
 
     it "displays scopes for a token" do
 

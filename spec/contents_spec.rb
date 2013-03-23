@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Octonaut do
+describe "octonaut" do
 
-  context "contents" do
+  context "readme" do
 
     it "displays the src for a README" do
       request = stub_get("/repos/pengwynn/octonaut/readme").
@@ -32,6 +32,10 @@ describe Octonaut do
 
       Octonaut.run %w(readme -f html --ref some-branch pengwynn/octonaut)
     end
+
+  end
+
+  context "contents" do
 
     it "gets contents of a file" do
       request = stub_get("/repos/pengwynn/octonaut/contents/README.md").

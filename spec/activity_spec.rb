@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Octonaut do
+describe "octonaut" do
 
-  context "stars" do
+  context "starred" do
 
     it "requires a username to list stars" do
       request = stub_get("https://api.github.com/users/pengwynn/starred").
@@ -37,26 +37,6 @@ describe Octonaut do
       expect($stdout.string).to eq(fixture('starred.ls').read)
     end
 
-    it "stars a repository" do
-      request = stub_put("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby star defunkt/dotjs)
-      expect(request).to have_been_made
-
-      expect($stdout.string).to eq("Starred defunkt/dotjs\n")
-    end
-
-    it "unstars a repository" do
-      request = stub_delete("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby unstar defunkt/dotjs)
-      expect(request).to have_been_made
-
-      expect($stdout.string).to eq("Unstarred defunkt/dotjs\n")
-    end
-
     it "checks if you've starred a repository" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
         to_return(:status => 204)
@@ -77,6 +57,38 @@ describe Octonaut do
       expect($stdout.string).to eq("defunkt has not starred defunkt/dotjs\n")
     end
 
+  end
+
+  context "star" do
+
+    it "stars a repository" do
+      request = stub_put("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
+        to_return(:status => 204)
+
+      Octonaut.run %w(-u defunkt -p il0veruby star defunkt/dotjs)
+      expect(request).to have_been_made
+
+      expect($stdout.string).to eq("Starred defunkt/dotjs\n")
+    end
+
+  end
+
+  context "unstar" do
+
+    it "unstars a repository" do
+      request = stub_delete("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
+        to_return(:status => 204)
+
+      Octonaut.run %w(-u defunkt -p il0veruby unstar defunkt/dotjs)
+      expect(request).to have_been_made
+
+      expect($stdout.string).to eq("Unstarred defunkt/dotjs\n")
+    end
+
+  end
+
+  context "stargazers" do
+
     it "lists stargazers for a repository" do
       request = stub_get("/repos/defunkt/dotjs/stargazers").
         to_return(json_response("users.json"))
@@ -89,7 +101,7 @@ describe Octonaut do
 
   end
 
-  context "subscriptions" do
+  context "subscribe" do
 
     it "subscribes to a repository" do
       request = stub_put("https://defunkt:il0veruby@api.github.com/repos/defunkt/dotjs/subscription").
@@ -110,6 +122,10 @@ describe Octonaut do
       expect($stdout.string).to eq("Subscribed to defunkt/dotjs and ignored\n")
     end
 
+  end
+
+  context "unsubscribe" do
+
     it "unsubscribes to a repository" do
       request = stub_delete("https://defunkt:il0veruby@api.github.com/repos/defunkt/dotjs/subscription").
         to_return(:status => 204)
@@ -119,6 +135,10 @@ describe Octonaut do
       expect($stdout.string).to eq("Unsubscribed to defunkt/dotjs\n")
     end
 
+  end
+
+  context "subscribers" do
+
     it "lists subscribers for a repository" do
       request = stub_get("https://api.github.com/repos/defunkt/dotjs/subscribers").
         to_return(json_response("subscribers.json"))
@@ -127,6 +147,10 @@ describe Octonaut do
       expect(request).to have_been_made
       expect($stdout.string).to eq(fixture('subscribers.ls').read)
     end
+
+  end
+
+  context "subscription" do
 
     it "lists subscribed repositories" do
       request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/subscriptions").
