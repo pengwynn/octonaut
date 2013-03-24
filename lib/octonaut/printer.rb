@@ -1,4 +1,5 @@
 require 'octonaut/printers/authorizations'
+require 'octonaut/printers/issues'
 require 'octonaut/printers/organizations'
 require 'octonaut/printers/users'
 require 'octonaut/printers/repositories'
@@ -6,6 +7,7 @@ require 'octonaut/printers/repositories'
 module Octonaut
   module Printer
     include Octonaut::Printers::Authorizations
+    include Octonaut::Printers::Issues
     include Octonaut::Printers::Repositories
     include Octonaut::Printers::Users
 

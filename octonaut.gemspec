@@ -18,7 +18,7 @@ spec = Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables << 'octonaut'
   s.add_dependency('gli','~> 2.5.5')
-  s.add_dependency('octokit', '~> 1.22.0')
+  s.add_dependency('octokit', '~> 1.24.0')
   s.add_dependency('launchy', '~> 2.2.0')
   s.add_dependency('highline', '~> 1.6.15')
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
