@@ -12,6 +12,16 @@ module Octonaut
       list.arg_name "open, closed"
       list.default_value "open"
       list.flag :state
+      list.arg_name "created, updated, comments"
+      list.default_value "created"
+      list.flag :sort
+      list.arg_name "asc, desc"
+      list.default_value "desc"
+      list.flag :direction
+      list.arg_name "label"
+      list.flag :labels
+      list.arg_name "YYYY-MM-DDTHH:MM:SSZ"
+      list.flag :since
       list.arg_name "organization"
       list.flag [:organization]
       list.arg_name "repository", :optional
