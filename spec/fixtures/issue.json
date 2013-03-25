@@ -1,0 +1,62 @@
+{
+  "url": "https://api.github.com/repos/pengwynn/octonaut/issues/1",
+  "labels_url": "https://api.github.com/repos/pengwynn/octonaut/issues/1/labels{/name}",
+  "comments_url": "https://api.github.com/repos/pengwynn/octonaut/issues/1/comments",
+  "events_url": "https://api.github.com/repos/pengwynn/octonaut/issues/1/events",
+  "html_url": "https://github.com/pengwynn/octonaut/issues/1",
+  "id": 12111269,
+  "number": 1,
+  "title": "Better executable name",
+  "user": {
+    "login": "pengwynn",
+    "id": 865,
+    "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+    "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+    "url": "https://api.github.com/users/pengwynn",
+    "html_url": "https://github.com/pengwynn",
+    "followers_url": "https://api.github.com/users/pengwynn/followers",
+    "following_url": "https://api.github.com/users/pengwynn/following",
+    "gists_url": "https://api.github.com/users/pengwynn/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pengwynn/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pengwynn/subscriptions",
+    "organizations_url": "https://api.github.com/users/pengwynn/orgs",
+    "repos_url": "https://api.github.com/users/pengwynn/repos",
+    "events_url": "https://api.github.com/users/pengwynn/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pengwynn/received_events",
+    "type": "User"
+  },
+  "labels": [
+
+  ],
+  "state": "closed",
+  "assignee": null,
+  "milestone": null,
+  "comments": 3,
+  "created_at": "2013-03-17T17:06:36Z",
+  "updated_at": "2013-03-18T18:54:54Z",
+  "closed_at": "2013-03-18T18:54:54Z",
+  "pull_request": {
+    "html_url": null,
+    "diff_url": null,
+    "patch_url": null
+  },
+  "body": "I will end up aliasing to `o`, but such a short executable is a bit presumptious.\r\n\r\nNeed to pick one of:\r\n\r\n* `octonaut`\r\n* `octo`\r\n* `naut`\r\n* `ocat`\r\n\r\nor...",
+  "closed_by": {
+    "login": "pengwynn",
+    "id": 865,
+    "avatar_url": "https://secure.gravatar.com/avatar/7e19cd5486b5d6dc1ef90e671ba52ae0?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+    "gravatar_id": "7e19cd5486b5d6dc1ef90e671ba52ae0",
+    "url": "https://api.github.com/users/pengwynn",
+    "html_url": "https://github.com/pengwynn",
+    "followers_url": "https://api.github.com/users/pengwynn/followers",
+    "following_url": "https://api.github.com/users/pengwynn/following",
+    "gists_url": "https://api.github.com/users/pengwynn/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/pengwynn/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/pengwynn/subscriptions",
+    "organizations_url": "https://api.github.com/users/pengwynn/orgs",
+    "repos_url": "https://api.github.com/users/pengwynn/repos",
+    "events_url": "https://api.github.com/users/pengwynn/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/pengwynn/received_events",
+    "type": "User"
+  }
+}

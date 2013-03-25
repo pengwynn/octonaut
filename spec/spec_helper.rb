@@ -95,3 +95,7 @@ def github_url(url)
     "https://api.github.com#{url}"
   end
 end
+
+def terminal_output
+  $stdout.string.gsub(/\r/, '')
+end

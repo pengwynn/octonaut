@@ -11,6 +11,16 @@ module Octonaut
     include Octonaut::Printers::Repositories
     include Octonaut::Printers::Users
 
+    def print_detail(data)
+      data.each do | key, value |
+        header = key.to_s
+        puts header
+        puts "=" * header.size
+        puts value
+        puts ""
+      end
+    end
+
     def print_table(data)
       data.each { | key, value | puts "#{key.rjust(data.keys.map(&:length).max)} #{value}" }
     end

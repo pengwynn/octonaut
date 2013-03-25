@@ -53,20 +53,45 @@ describe "octonaut" do
 
   context "issue" do
 
-    xit "displays a single issue for a repository" do
+    it "displays a single issue for a repository" do
+      request = stub_get("/repos/pengwynn/octonaut/issues/1").
+        to_return(json_response("issue.json"))
 
+      Octonaut.run %w(issue pengwynn/octonaut 1)
+      expect(request).to have_been_made
+      expect(terminal_output).to eq(fixture('issue.detail').read)
     end
 
-    xit "displays an issue in different output formats" do
+    it "updates an issue" do
+      pending("Waiting on patch from Octokit")
+      request = stub_patch("/repos/pengwynn/octonaut/issues/1").
+        with(:body => {:title => "Can haz better executable name"}).
+        to_return(json_response("issue.json"))
 
+      Octonaut.run %w(issue --title 'Can haz better executable name' pengwynn/octonaut 1)
+      expect(request).to have_been_made
+      expect(terminal_output).to eq("Issue updated")
     end
 
-    xit "updates an issue" do
+  end
 
-    end
+  context "issue-create" do
 
-    xit "creates an issue" do
+    it "creates an issue" do
+      request = stub_post("/repos/pengwynn/octonaut/issues").
+        with(:body => {:title => "Better executable name", :body => 'foobar baz'}).
+        to_return(json_response("issue.json"))
 
+      Octonaut.run [
+        "issue-create",
+        "--title",
+        "Better executable name",
+        "--body",
+        "foobar baz",
+        "pengwynn/octonaut"
+      ]
+      expect(request).to have_been_made
+      expect(terminal_output).to eq("Created pengwynn/octonaut 1\n")
     end
 
   end

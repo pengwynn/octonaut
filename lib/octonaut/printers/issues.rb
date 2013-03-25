@@ -3,19 +3,20 @@ module Octonaut
     module Issues
 
       ISSUE_FIELDS = {
-        "id"         => "ID",
+        "number"     => "NUMBER",
         "title"      => "TITLE",
         "body"       => "BODY",
+        "html_url"   => "URL",
         "created_at" => "CREATED"
       }
 
-      def print_issue_table(issue, options = {})
+      def print_issue_detail(issue, options = {})
         data = {}
         ISSUE_FIELDS.each do |field, heading|
           data[heading] = issue[field]
         end
 
-        print_table(data)
+        print_detail(data)
       end
 
       def print_issues(issues, options = {})
