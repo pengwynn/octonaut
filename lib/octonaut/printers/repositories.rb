@@ -33,7 +33,6 @@ module Octonaut
       end
 
       def print_repos(repos, options = {})
-        puts caller.inspect
         options[:csv] ? print_csv_repos(repos) : ls_repos(repos)
       end
 
