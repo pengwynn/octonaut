@@ -39,4 +39,15 @@ module Octonaut
       print_table @client.languages(name)
     end
   end
+
+  desc "Display collaborators for a repo" 
+  arg_name "owner/repo" 
+  command [:collabs, :collaborators] do |c|
+    c.action do |globa, options, args|
+      name = args.shift
+
+      print_collabs @client.collaborators(name)
+    end
+  end
+
 end
