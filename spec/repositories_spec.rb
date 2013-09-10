@@ -46,4 +46,16 @@ describe "octonaut" do
     end
 
   end
+
+  context "collaborators" do 
+
+    it "lists collaborators for a repository" do 
+      request = stub_get('/repos/pengwynn/dotfiles/collaborators').
+        to_return(json_response("collaborators.json"))
+
+      Octonaut.run %w(collaborators pengwynn/dotfiles)
+      expect($stdout.string).to eq(fixture('collaborators.ls').read)
+
+    end
+  end
 end
