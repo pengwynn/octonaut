@@ -1,6 +1,11 @@
 ENV['OCTONAUT_ENV']          = 'TEST'
 ENV['OCTONAUT_PLUGINS_PATH'] = 'tmp/fakehome/plugins'
 
+require 'octonaut'
+require 'rspec/mocks'
+require 'webmock/rspec'
+require 'vcr'
+
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.order = 'random'
@@ -23,9 +28,21 @@ RSpec.configure do |config|
   end
 end
 
-require 'octonaut'
-require 'rspec/mocks'
-require 'webmock/rspec'
+VCR.configure do |c|
+  c.configure_rspec_metadata!
+  c.filter_sensitive_data("<<ACCESS_TOKEN>>") do
+      ENV['OCTONAUT_TEST_TOKEN']
+  end
+  c.default_cassette_options = {
+    :serialize_with             => :json,
+    # TODO: Track down UTF-8 issue and remove
+    :preserve_exact_body_bytes  => true,
+    :decode_compressed_response => true,
+    :record                     => ENV['TRAVIS'] ? :none : :once
+  }
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+end
 
 def a_delete(url)
   a_request(:delete, github_url(url))

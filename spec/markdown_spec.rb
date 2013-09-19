@@ -1,34 +1,22 @@
 require 'spec_helper'
 
 describe "octonaut" do
-
-  context "markdown" do
+  context "markdown", :vcr do
 
     it "renders gfm markdown" do
-      request = stub_post('/markdown').
-        to_return(:body => fixture('gfm.html'))
-
-      Octonaut.run ['markdown', '# Test #']
-      expect(request).to have_been_made
+      Octonaut.run ['markdown', 'pengwynn/octonaut#1']
+      expect($stdout.string).to include("https://github.com/pengwynn/octonaut/issues/1")
     end
 
-    it "renders plain markdown" do
-      request = stub_post('/markdown').
-        to_return(:body => fixture('markdown.html').read)
-
+    it "renders plain markdown", :vcr do
       Octonaut.run ['markdown', '# Test #', '-m', 'markdown']
-      expect(request).to have_been_made
+      expect($stdout.string).to include("Test</h1>")
     end
 
     it "takes input from STDIN" do
-
       $stdin.should_receive(:gets).and_return("*foo*")
-      Octokit::Client.any_instance.
-        should_receive(:markdown).
-        with("*foo*", {:mode => "gfm"})
-
       Octonaut.run ['markdown']
-
+      expect($stdout.string).to include("<em>foo</em>")
     end
 
   end

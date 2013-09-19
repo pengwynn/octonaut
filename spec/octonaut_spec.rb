@@ -23,13 +23,6 @@ describe "octonaut" do
   end
 
   it "can use an OAuth token" do
-    request = stub_get("https://pengwynn:m3tal@api.github.com/user").
-      to_return(json_response("user.json"))
-    Octonaut.run %w(--login=pengwynn --password=m3tal me)
-    expect(request).to have_been_made
-  end
-
-  it "can use an OAuth token" do
     request = stub_get("https://api.github.com/user").
       with(:headers => { "Authorization" => "token 1234567890123456789012345678901234567890" }).
       to_return(json_response("user.json"))

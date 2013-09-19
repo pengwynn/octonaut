@@ -64,6 +64,7 @@ GEM
     simplecov-html (0.5.3)
     slop (3.3.3)
     thor (0.16.0)
+    vcr (2.5.0)
     webmock (1.8.7)
       addressable (>= 2.2.7)
       crack (>= 0.1.7)
@@ -79,4 +80,5 @@ DEPENDENCIES
   rspec (~> 2.12.0)
   rspec-mocks (~> 2.12.0)
   simplecov
+  vcr (~> 2.5.0)
   webmock
