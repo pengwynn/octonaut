@@ -88,7 +88,7 @@ module Octonaut
       end
     end
     opts.merge!(options).
-      select {|k, v| Octokit::Configuration::VALID_OPTIONS_KEYS.include?(k) }
+      select {|k, v| Octokit::Configurable.keys.include?(k) }
     Octokit::Client.new(opts)
   end
 
