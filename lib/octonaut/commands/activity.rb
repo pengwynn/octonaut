@@ -17,7 +17,7 @@ module Octonaut
         user, repo = target.split("/")
         login = @client.login
       else
-        login = target || (@client.authenticated? ? @client.login : nil)
+        login = target || (@client.user_authenticated? ? @client.login : nil)
       end
 
       if repo

@@ -32,7 +32,7 @@ module Octonaut
     c.desc "List GitHub API tokens"
     c.command [:ls, :list] do |ls|
       ls.action do |global,options,args|
-        raise ArgumentError.new "Basic Authentication required" unless @client.authenticated?
+        raise ArgumentError.new "Basic Authentication required" unless @client.user_authenticated?
 
         ls_tokens @client.authorizations
       end
