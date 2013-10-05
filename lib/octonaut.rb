@@ -44,7 +44,7 @@ module Octonaut
   desc 'GitHub password'
   flag [:p, :password], :mask => true
   desc 'GitHub API token'
-  flag [:t, :oauth_token, :token], :mask => true
+  flag [:t, :access_token, :token], :mask => true
   desc 'Automatically fetch all pages of paginated results'
   switch [:a, :auto_traversal]
 
@@ -82,7 +82,7 @@ module Octonaut
     opts[:netrc] = netrc_path if netrc_path
     # drop OAuth token if basic auth is present
     if (opts['login'] && opts['password']) || opts[:netrc]
-      %w(t token oauth_token).each do |k|
+      %w(t token access_token).each do |k|
         opts.delete(k)
         opts.delete(k.to_sym)
       end
