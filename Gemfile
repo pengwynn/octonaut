@@ -8,7 +8,7 @@ group :development do
   gem 'rspec-mocks', '~> 2.12.0'
   gem 'simplecov'
   gem 'vcr', '~> 2.5.0'
-  gem 'webmock'
+  gem 'webmock', '1.11.0'
 end
 
 gemspec
