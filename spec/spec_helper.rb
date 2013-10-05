@@ -124,12 +124,37 @@ def github_url(url)
   end
 end
 
-#require 'rspec/expectations'
 RSpec::Matchers.define :be_a_listing do |expected|
   match do |actual|
     actual.split("\n").length > 0
   end
   failure_message_for_should do |actual|
     "expected that #{actual} would be a listing"
+  end
+end
+
+module MatchersHelpers
+  def data_table(output)
+    lines = actual.split("\n")
+    data = lines.map {|l| l.gsub(/^\s{2,}/, '') }.
+      map {|l| l.split(" ")}
+    table = {}
+    data.each {|k,v| table[k] = v}
+
+    table
+  end
+
+  def is_table?(output)
+    data_table(output).values.size > 1
+  end
+end
+
+RSpec::Matchers.define :be_a_table do |expected|
+  include MatchersHelpers
+  match do |actual|
+    is_table?(actual)
+  end
+  failure_message_for_should do |actual|
+    "expected that \n#{actual} would be a data table"
   end
 end
