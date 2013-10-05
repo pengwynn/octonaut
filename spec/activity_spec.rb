@@ -1,166 +1,94 @@
 require 'spec_helper'
 
-describe "octonaut" do
-
+describe "octonaut", :vcr do
   context "starred" do
-
     it "requires a username to list stars" do
-      request = stub_get("https://api.github.com/users/pengwynn/starred").
-        to_return(json_response("starred.json"))
-
       Octonaut.run %w(starred)
-      expect(request).to have_not_been_made
-
       expect($stdout.string).to eq("Please authenticate or provide a GitHub login\n")
     end
 
-
     it "lists your starred repositories" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/user/starred").
-        to_return(json_response("starred.json"))
-
-
-      Octonaut.run %w(-u defunkt -p il0veruby starred)
-      expect(request).to have_been_made
-
-      expect($stdout.string).to eq(fixture('starred.ls').read)
+      run_with_token %w(starred)
+      output = $stdout.string
+      expect(output).to be_a_listing
+      expect(output).to include("octokit/octokit.rb")
     end
 
     it "lists stars for a user" do
-      request = stub_get("https://api.github.com/users/pengwynn/starred").
-        to_return(json_response("starred.json"))
-
-
       Octonaut.run %w(starred pengwynn)
-      expect(request).to have_been_made
-
-      expect($stdout.string).to eq(fixture('starred.ls').read)
+      output = $stdout.string
+      expect(output).to be_a_listing
+      expect(output).to include("sigmavirus24/betamax")
     end
 
     it "checks if you've starred a repository" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby starred defunkt/dotjs)
-      expect(request).to have_been_made
-
-      expect($stdout.string).to eq("defunkt has starred defunkt/dotjs\n")
+      run_with_token %w(starred defunkt/dotjs)
+      expect($stdout.string).to eq("api-padawan has starred defunkt/dotjs\n")
     end
 
     it "indicates a user has not starred a repo" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
-        to_return(:status => 404)
-
-      Octonaut.run %w(-u defunkt -p il0veruby starred defunkt/dotjs)
-      expect(request).to have_been_made
-
-      expect($stdout.string).to eq("defunkt has not starred defunkt/dotjs\n")
+      run_with_token %w(starred rails/rails)
+      expect($stdout.string).to eq("api-padawan has not starred rails/rails\n")
     end
-
   end
 
   context "star" do
-
     it "stars a repository" do
-      request = stub_put("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby star defunkt/dotjs)
-      expect(request).to have_been_made
-
+      run_with_token %w(star defunkt/dotjs)
       expect($stdout.string).to eq("Starred defunkt/dotjs\n")
     end
-
   end
 
   context "unstar" do
-
     it "unstars a repository" do
-      request = stub_delete("https://defunkt:il0veruby@api.github.com/user/starred/defunkt/dotjs").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby unstar defunkt/dotjs)
-      expect(request).to have_been_made
-
+      run_with_token %w(unstar defunkt/dotjs)
       expect($stdout.string).to eq("Unstarred defunkt/dotjs\n")
     end
-
   end
 
   context "stargazers" do
-
     it "lists stargazers for a repository" do
-      request = stub_get("/repos/defunkt/dotjs/stargazers").
-        to_return(json_response("users.json"))
-
       Octonaut.run %w(stargazers defunkt/dotjs)
-
-      expect(request).to have_been_made
-      expect($stdout.string).to eq(fixture('users.ls').read)
+      output = $stdout.string
+      expect(output).to be_a_listing
+      expect(output).to include('defunkt')
     end
-
   end
 
   context "subscribe" do
-
     it "subscribes to a repository" do
-      request = stub_put("https://defunkt:il0veruby@api.github.com/repos/defunkt/dotjs/subscription").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby subscribe defunkt/dotjs)
-      expect(request).to have_been_made
+      run_with_token %w(subscribe defunkt/dotjs)
       expect($stdout.string).to eq("Subscribed to defunkt/dotjs\n")
     end
 
     it "marks a subscription as ignored" do
-      request = stub_put("https://defunkt:il0veruby@api.github.com/repos/defunkt/dotjs/subscription").
-        with(:body => {:ignored => true}).
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby subscribe -i defunkt/dotjs)
-      expect(request).to have_been_made
+      run_with_token %w(subscribe -i defunkt/dotjs)
       expect($stdout.string).to eq("Subscribed to defunkt/dotjs and ignored\n")
     end
-
   end
 
   context "unsubscribe" do
-
     it "unsubscribes to a repository" do
-      request = stub_delete("https://defunkt:il0veruby@api.github.com/repos/defunkt/dotjs/subscription").
-        to_return(:status => 204)
-
-      Octonaut.run %w(-u defunkt -p il0veruby unsubscribe defunkt/dotjs)
-      expect(request).to have_been_made
+      run_with_token %w(unsubscribe defunkt/dotjs)
       expect($stdout.string).to eq("Unsubscribed to defunkt/dotjs\n")
     end
-
   end
 
   context "subscribers" do
-
     it "lists subscribers for a repository" do
-      request = stub_get("https://api.github.com/repos/defunkt/dotjs/subscribers").
-        to_return(json_response("subscribers.json"))
-
       Octonaut.run %w(subscribers defunkt/dotjs)
-      expect(request).to have_been_made
-      expect($stdout.string).to eq(fixture('subscribers.ls').read)
+      output = $stdout.string
+      expect(output).to be_a_listing
+      expect(output).to include('defunkt')
     end
-
   end
 
-  context "subscription" do
-
+  context "subscriptions" do
     it "lists subscribed repositories" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/user/subscriptions").
-        to_return(json_response("repositories.json"))
-
-      Octonaut.run %w(-u defunkt -p il0veruby subscriptions)
-      expect(request).to have_been_made
-      expect($stdout.string).to eq(fixture('repositories.ls').read)
+      run_with_token %w(subscriptions)
+      output = $stdout.string
+      expect(output).to be_a_listing
+      expect(output).to include('pengwynn/api-sandbox')
     end
-
   end
-
 end

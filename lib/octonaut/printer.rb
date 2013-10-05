@@ -11,8 +11,9 @@ module Octonaut
     include Octonaut::Printers::Users
     include Octonaut::Printers::Collaborators
 
-    def print_table(data)
-      data.each { | key, value | puts "#{key.rjust(data.keys.map(&:length).max)} #{value}" }
+    def print_table(resource)
+      data = resource.to_hash
+      data.each { | key, value | puts "#{key.to_s.rjust(data.keys.map(&:length).max)} #{value}" }
     end
 
     def print_csv(array, options = {})
