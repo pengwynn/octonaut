@@ -11,6 +11,7 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before :each do
+    Octokit.reset!
     @old_stderr = $stderr
     $stderr = StringIO.new
     @old_stdout = $stdout
@@ -21,6 +22,7 @@ RSpec.configure do |config|
   end
 
   config.after :each do
+    Octokit.reset!
     $stderr = @old_stderr
     $stdout = @old_stdout
     $stdin  = @old_stdin
@@ -42,6 +44,15 @@ VCR.configure do |c|
   }
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
+end
+
+def token
+  ENV['OCTONAUT_TEST_TOKEN']
+end
+
+def run_with_token(args = [])
+  args.unshift '-t', token
+  Octonaut.run args
 end
 
 def a_delete(url)
@@ -110,5 +121,15 @@ def github_url(url)
     url
   else
     "https://api.github.com#{url}"
+  end
+end
+
+#require 'rspec/expectations'
+RSpec::Matchers.define :be_a_listing do |expected|
+  match do |actual|
+    actual.split("\n").length > 0
+  end
+  failure_message_for_should do |actual|
+    "expected that #{actual} would be a listing"
   end
 end
