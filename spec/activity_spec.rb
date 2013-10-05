@@ -16,7 +16,7 @@ describe "octonaut" do
 
 
     it "lists your starred repositories" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/starred").
+      request = stub_get("https://defunkt:il0veruby@api.github.com/user/starred").
         to_return(json_response("starred.json"))
 
 
@@ -153,7 +153,7 @@ describe "octonaut" do
   context "subscription" do
 
     it "lists subscribed repositories" do
-      request = stub_get("https://defunkt:il0veruby@api.github.com/users/defunkt/subscriptions").
+      request = stub_get("https://defunkt:il0veruby@api.github.com/user/subscriptions").
         to_return(json_response("repositories.json"))
 
       Octonaut.run %w(-u defunkt -p il0veruby subscriptions)
