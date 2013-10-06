@@ -35,7 +35,6 @@ module Octonaut
   command [:langs, :languages] do |c|
     c.action do |global,options,args|
       name = args.shift
-
       print_table @client.languages(name)
     end
   end
