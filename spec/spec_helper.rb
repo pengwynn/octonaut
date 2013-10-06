@@ -46,12 +46,16 @@ VCR.configure do |c|
   c.hook_into :webmock
 end
 
+def login
+  ENV['OCTONAUT_TEST_LOGIN'] || 'api-padawan'
+end
+
 def token
   ENV['OCTONAUT_TEST_TOKEN']
 end
 
 def run_with_token(args = [])
-  args.unshift '-u', 'api-padawan', '-p', token
+  args.unshift '-u', login, '-p', token
   Octonaut.run args
 end
 
