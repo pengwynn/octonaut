@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'jruby-openssl', :platforms => :jruby
+gem 'rake'
+
 group :development do
   gem 'guard-rspec'
   gem 'rake', '~> 10.0.3'
