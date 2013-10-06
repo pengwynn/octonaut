@@ -13,7 +13,7 @@ module Octonaut
 
     def print_table(resource)
       data = resource.to_hash
-      data.each { | key, value | puts "#{key.to_s.rjust(data.keys.map(&:length).max)} #{value}" }
+      data.each { | key, value | puts "#{key.to_s.rjust(data.keys.map{|key| key.to_s.length}.max)} #{value}" }
     end
 
     def print_csv(array, options = {})
