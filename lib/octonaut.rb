@@ -46,7 +46,7 @@ module Octonaut
   desc 'GitHub API token'
   flag [:t, :access_token, :token], :mask => true
   desc 'Automatically fetch all pages of paginated results'
-  switch [:a, :auto_traversal]
+  switch [:a, :auto_paginate]
 
 
   pre do |global,command,options,args|
