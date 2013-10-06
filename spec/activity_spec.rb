@@ -23,7 +23,7 @@ describe "octonaut", :vcr do
 
     it "checks if you've starred a repository" do
       run_with_token %w(starred defunkt/dotjs)
-      expect($stdout.string).to eq("api-padawan has starred defunkt/dotjs\n")
+      expect($stdout.string).to eq("api-padawan has not starred defunkt/dotjs\n")
     end
 
     it "indicates a user has not starred a repo" do

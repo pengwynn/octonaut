@@ -51,7 +51,7 @@ def token
 end
 
 def run_with_token(args = [])
-  args.unshift '-t', token
+  args.unshift '-u', 'api-padawan', '-p', token
   Octonaut.run args
 end
 
