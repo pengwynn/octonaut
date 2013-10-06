@@ -5,10 +5,10 @@ set -e
 echo "===> Bundling..."
 script/bootstrap --quiet
 
-# if [[ -z "$OCTONAUT_TEST_TOKEN" ]]; then
-#     echo "Please export OCTONAUT_TEST_TOKEN";
-#     exit 1;
-# fi
+if [[ -z "$OCTONAUT_TEST_TOKEN" ]]; then
+    echo "Please export OCTONAUT_TEST_TOKEN";
+    exit 1;
+fi
 
 echo "===> Running specs..."
 bundle exec rake spec
