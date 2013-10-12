@@ -3,7 +3,8 @@ module Octonaut
   command :me do |c|
     c.action do |global,options,args|
       user = @client.user
-      print_user_table user
+      printer = Octonaut::Printers::Users.new
+      printer.table user
     end
   end
 
@@ -19,10 +20,11 @@ module Octonaut
           user = @client.user login
           case user['type']
           when 'Organization'
-            print_org_table user
+            printer = Octonaut::Printers::Organizations.new
           else
-            print_user_table user
+            printer = Octonaut::Printers::Users.new
           end
+          printer.table user
         rescue Octokit::NotFound
           puts "User or organization #{login} not found"
         end
@@ -59,7 +61,9 @@ module Octonaut
   command :followers do |c|
     c.action do |global,options,args|
       login = args.shift || @client.login
-      print_users @client.followers(login), options
+
+      printer = Octonaut::Printers::Users.new
+      printer.print @client.followers(login), options
     end
   end
 
@@ -68,7 +72,8 @@ module Octonaut
   command :following do |c|
     c.action do |global,options,args|
       login = args.shift || @client.login
-      print_users @client.following(login), options
+      printer = Octonaut::Printers::Users.new
+      printer.print @client.following(login), options
     end
   end
 
