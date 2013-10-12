@@ -47,7 +47,7 @@ module Octonaut
       update.arg_name "Hireable", :optional
       update.switch :hireable
       update.action do |global,options,args|
-        opts = Octonaut.supplied_flags(options)
+        opts = Octonaut.flags_as_symbols(options)
         if @client.update_user(opts)
           puts "User profile updated"
         end

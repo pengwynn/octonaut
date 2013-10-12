@@ -17,7 +17,7 @@ module Octonaut
       list.action do |global,options,args|
         repo = args.shift
         ensure_authenticated("Authentication or repository required") if repo.nil?
-        opts = Octonaut.supplied_flags(options)
+        opts = Octonaut.flags_as_symbols(options)
         printer = Octonaut::Printers::Issues.new
         org = opts.delete(:organization)
         case org
@@ -36,7 +36,7 @@ module Octonaut
       show.arg_name ":owner/:repo#number"
       show.action do |global,options,args|
         info = Octonaut::Utils::REPO_ISSUE_REGEX.match(args.shift)
-        opts = Octonaut.supplied_flags(options)
+        opts = Octonaut.flags_as_symbols(options)
 
         printer = Octonaut::Printers::Issues.new
         printer.table \

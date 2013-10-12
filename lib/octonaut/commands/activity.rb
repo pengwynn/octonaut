@@ -27,7 +27,7 @@ module Octonaut
       elsif login.nil?
         puts "Please authenticate or provide a GitHub login"
       else
-        opts = Octonaut.supplied_flags(options)
+        opts = Octonaut.flags_as_symbols(options)
         printer = Octonaut::Printers::Repositories.new
         printer.ls @client.starred(login, opts)
       end
@@ -78,7 +78,7 @@ module Octonaut
       repo = args.shift
       raise ArgumentError.new "Repository required" if repo.nil?
 
-      opts = Octonaut.supplied_flags(options).select {|k, v| k == :ignored}
+      opts = Octonaut.fetch_options(options, :ignored)
       if @client.update_subscription(repo, opts)
         message = "Subscribed to #{repo}"
         message << " and ignored" if opts[:ignored]

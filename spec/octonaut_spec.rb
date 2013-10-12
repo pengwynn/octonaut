@@ -81,5 +81,20 @@ describe "octonaut" do
       expect(info['t']).to eq "123456"
     end
   end
+
+  describe ".fetch_options" do
+    it "can fetch a subset of options" do
+      options = {
+        "foo" => "one",
+        :foo  => "one",
+        "bar" => "two",
+        :bar  => "two",
+        :baz  => "three"
+      }
+
+      opts = Octonaut.fetch_options(options, :bar, :baz)
+      expect(opts).to eq({:bar => "two", :baz => "three"})
+    end
+  end
 end
 
