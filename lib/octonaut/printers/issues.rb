@@ -1,6 +1,6 @@
 module Octonaut
   module Printers
-    class Issues
+    class Issues < Base
 
       def field_map
         {

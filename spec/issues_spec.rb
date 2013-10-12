@@ -41,13 +41,19 @@ describe "octonaut", :vcr do
       assert_requested :get,
         github_url('/repos/octokit/octokit.rb/issues?filter=all&state=open')
     end
-  end
 
-  context "issue" do
-    it "displays a single issue for a repository"
-    it "displays an issue in different output formats"
-    it "updates an issue"
-    it "creates an issue"
+    describe "show", :vcr do
+      it "displays a single issue for a repository" do
+        run_with_token %w(issues show octokit/octokit.rb#1)
+        output = $stdout.string
+        expect(output).to be_a_table
+        assert_requested :get,
+          github_url('/repos/octokit/octokit.rb/issues/1')
+      end
+
+      it "creates an issue"
+      it "updates an issue"
+    end
   end
 
 end

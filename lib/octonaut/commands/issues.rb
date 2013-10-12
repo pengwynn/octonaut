@@ -22,12 +22,25 @@ module Octonaut
         org = opts.delete(:organization)
         case org
         when 'none'
-          printer.ls @client.user_issues(opts), options
+          printer.ls @client.user_issues(opts), opts
         when String
-          printer.ls @client.org_issues(org, opts), options
+          printer.ls @client.org_issues(org, opts), opts
         else
-          printer.ls @client.list_issues(repo, opts), options
+          printer.ls @client.list_issues(repo, opts), opts
         end
+      end
+    end
+
+    c.desc "Show issue"
+    c.command [:show] do |show|
+      show.arg_name ":owner/:repo#number"
+      show.action do |global,options,args|
+        info = Octonaut::Utils::REPO_ISSUE_REGEX.match(args.shift)
+        opts = Octonaut.supplied_flags(options)
+
+        printer = Octonaut::Printers::Issues.new
+        printer.table \
+          @client.issue(info[:repo], info[:number])
       end
     end
   end
