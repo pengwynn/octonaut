@@ -1,8 +1,8 @@
 module Octonaut
   module Printers
-    module Repositories
+    class Repositories < Base
 
-      REPOSITORY_FIELDS = {
+      FIELDS = {
         "id"             => "ID",
         "name"           => "NAME",
         "full_name"      => "FULL NAME",
@@ -23,27 +23,8 @@ module Octonaut
         "updated_at"     => "UPDATED"
       }
 
-      def print_repo_table(repo, options = {})
-        data = {}
-        REPOSITORY_FIELDS.each do |field, heading|
-          data[heading] = repo[field]
-        end
+      LS_FIELD = :full_name
 
-        print_table(data)
-      end
-
-      def print_repos(repos, options = {})
-        options[:csv] ? print_csv_repos(repos) : ls_repos(repos)
-      end
-
-      def print_csv_repos(repos, options = {})
-        options[:fields] = REPOSITORY_FIELDS
-        print_csv repos, options
-      end
-
-      def ls_repos(repos, options = {})
-        repos.each {|r| puts r.full_name }
-      end
     end
   end
 end

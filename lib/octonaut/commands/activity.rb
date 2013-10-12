@@ -28,7 +28,8 @@ module Octonaut
         puts "Please authenticate or provide a GitHub login"
       else
         opts = Octonaut.supplied_flags(options)
-        ls_repos @client.starred(login, opts)
+        printer = Octonaut::Printers::Repositories.new
+        printer.ls @client.starred(login, opts)
       end
     end
 
@@ -63,7 +64,8 @@ module Octonaut
       repo = args.shift
       raise ArgumentError.new "Repository required" if repo.nil?
 
-      ls_users @client.stargazers(repo)
+      printer = Octonaut::Printers::Users.new
+      printer.ls @client.stargazers(repo)
     end
   end
 
@@ -109,7 +111,8 @@ module Octonaut
       repo = args.shift
       raise ArgumentError.new "Repository required" if repo.nil?
 
-      ls_users @client.subscribers(repo)
+      printer = Octonaut::Printers::Users.new
+      printer.ls @client.subscribers(repo)
     end
   end
 
@@ -119,7 +122,8 @@ module Octonaut
     c.action do |global,options,args|
       user = args.shift || @client.login
       raise ArgumentError.new "User or authentication required" if user.nil?
-      ls_repos @client.subscriptions(user)
+      printer = Octonaut::Printers::Repositories.new
+      printer.ls @client.subscriptions(user)
     end
   end
 

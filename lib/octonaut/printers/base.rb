@@ -8,9 +8,13 @@ module Octonaut
         data.each { | key, value | puts table_row(key, value, width) }
       end
 
+      def print(array, options = {})
+        options[:csv] ? csv(array) : ls(array)
+      end
+
       def csv(array, options = {})
         unless array.first.respond_to?(:to_hash)
-          raise ArgumentError.new("array of hashes required") 
+          raise ArgumentError.new("array of hashes required")
         end
 
         fields  = FIELDS if defined?(FIELDS)
@@ -29,11 +33,14 @@ module Octonaut
 
       def ls(array, options = {})
         unless array.first.respond_to?(:to_hash)
-          raise ArgumentError.new("array of hashes required") 
+          raise ArgumentError.new("array of hashes required")
         end
+        data = array.map(&:to_hash)
 
-        field = defined?(LS_FIELD) ? LS_FIELD : array.first.keys.first
-        puts array.map {|item| item[field] }.join("\n")
+        field = self.class.const_defined?(:LS_FIELD) ?
+                self.class::LS_FIELD :
+                data.first.keys.first
+        puts data.map {|item| item[field] }.join("\n")
       end
 
       private

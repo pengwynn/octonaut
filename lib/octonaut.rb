@@ -3,15 +3,13 @@ require 'gli'
 require 'highline/import'
 require 'launchy'
 require 'octokit'
-require 'octonaut/printer'
-require 'octonaut/printers/base'
+require 'octonaut/printers'
 require 'octonaut/helpers'
 require 'octonaut/utils'
 require 'octonaut/version'
 
 module Octonaut
   extend GLI::App
-  extend Octonaut::Printer
   extend Octonaut::Helpers
   extend Octonaut::Utils
 

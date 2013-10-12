@@ -1,6 +1,6 @@
 module Octonaut
   module Printers
-    module Users
+    class Users < Base
 
       USER_FIELDS = {
         "id"         => "ID",
@@ -15,27 +15,7 @@ module Octonaut
         "created_at" => "JOINED"
       }
 
-      def print_user_table(user, options = {})
-        data = {}
-        USER_FIELDS.each do |field, heading|
-          data[heading] = user[field]
-        end
-
-        print_table(data)
-      end
-
-      def print_users(users, options = {})
-        options[:csv] ? print_csv_users(users) : ls_users(users)
-      end
-
-      def print_csv_users(users, options = {})
-        options[:fields] = USER_FIELDS
-        print_csv users, options
-      end
-
-      def ls_users(users, options = {})
-        users.each {|u| puts u.login }
-      end
+      LS_FIELD = :login
     end
   end
 end

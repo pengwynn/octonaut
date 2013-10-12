@@ -6,7 +6,8 @@ module Octonaut
     c.action do |global,options,args|
       name = args.shift
 
-      print_repo_table @client.repo(name)
+      printer = Octonaut::Printers::Repositories.new
+      printer.table @client.repo(name)
     end
   end
 
@@ -26,7 +27,8 @@ module Octonaut
       login = args.shift
       opts = options.select {|k,v| !v.nil? }
 
-      ls_repos @client.repositories(login, opts)
+      printer = Octonaut::Printers::Repositories.new
+      printer.ls @client.repositories(login, opts)
     end
   end
 
@@ -35,17 +37,20 @@ module Octonaut
   command [:langs, :languages] do |c|
     c.action do |global,options,args|
       name = args.shift
-      print_table @client.languages(name)
+
+      printer = Octonaut::Printers::Base.new
+      printer.table @client.languages(name)
     end
   end
 
-  desc "Display collaborators for a repo" 
-  arg_name "owner/repo" 
+  desc "Display collaborators for a repo"
+  arg_name "owner/repo"
   command [:collabs, :collaborators] do |c|
     c.action do |globa, options, args|
       name = args.shift
 
-      print_collabs @client.collaborators(name)
+      printer = Octonaut::Printers::Collaborators.new
+      printer.print @client.collaborators(name)
     end
   end
 
