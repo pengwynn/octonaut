@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "octonaut", :vcr do
   context "whois" do
     it "looks up users by login" do
-      Octonaut.run %w(whois defunkt)
+      run_with_token %w(whois defunkt)
       output = $stdout.string
       expect(output).to be_a_table
       expect(output).to include("Chris Wanstrath")
@@ -11,7 +11,7 @@ describe "octonaut", :vcr do
     it "gracefully handles bogus users" do
       request = stub_get('/users/defunktzzz').
         to_return(:status => 404)
-      Octonaut.run %w(whois defunktzzz)
+      run_with_token %w(whois defunktzzz)
       expect(request).to have_been_made
       expect($stdout.string).to include("User or organization defunktzzz not found")
     end
@@ -34,7 +34,7 @@ describe "octonaut", :vcr do
     end
 
     it "lists followers for a user" do
-      Octonaut.run %w(followers pengwynn)
+      run_with_token %w(followers pengwynn)
       output = $stdout.string
       expect(output).to be_a_listing
       expect(output).to include('defunkt')
@@ -50,7 +50,7 @@ describe "octonaut", :vcr do
     end
 
     it "lists users a user follows" do
-      Octonaut.run %w(following pengwynn)
+      run_with_token %w(following pengwynn)
       output = $stdout.string
       expect(output).to be_a_listing
       expect(output).to include('mojombo')

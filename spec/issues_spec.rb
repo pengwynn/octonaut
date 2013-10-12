@@ -50,10 +50,14 @@ describe "octonaut", :vcr do
         assert_requested :get,
           github_url('/repos/octokit/octokit.rb/issues/1')
       end
+    end
 
+    describe "create" do
       it "creates an issue"
+    end
+
+    describe "update" do
       it "updates an issue"
     end
   end
-
 end

@@ -78,10 +78,10 @@ module Octonaut
       repo = args.shift
       raise ArgumentError.new "Repository required" if repo.nil?
 
-      opts = Octonaut.supplied_flags(options).select {|k, v| k == 'ignored'}
+      opts = Octonaut.supplied_flags(options).select {|k, v| k == :ignored}
       if @client.update_subscription(repo, opts)
         message = "Subscribed to #{repo}"
-        message << " and ignored" if opts['ignored']
+        message << " and ignored" if opts[:ignored]
         puts message
       else
         puts "Could not subscribe to #{repo}"
