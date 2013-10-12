@@ -36,6 +36,9 @@ module Octonaut
       show.arg_name ":owner/:repo#number"
       show.action do |global,options,args|
         info = Octonaut::Utils::REPO_ISSUE_REGEX.match(args.shift)
+        if info.nil?
+          raise ArgumentError.new("Issue must be in owner/repo#number format")
+        end
         opts = Octonaut.flags_as_symbols(options)
 
         printer = Octonaut::Printers::Issues.new
