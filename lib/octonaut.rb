@@ -84,4 +84,7 @@ module Octonaut
     Octokit::Client.new(opts)
   end
 
+  def self.ensure_authenticated(message = "Authentication required")
+    raise ArgumentError.new(message) unless @client.user_authenticated?
+  end
 end

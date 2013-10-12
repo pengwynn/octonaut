@@ -128,6 +128,14 @@ def github_url(url)
   end
 end
 
+def github_url(url)
+  if url =~ /^http/
+    url
+  else
+    "https://#{login}:#{token}@api.github.com#{url}"
+  end
+end
+
 RSpec::Matchers.define :be_a_listing do |expected|
   match do |actual|
     actual.split("\n").length > 0
