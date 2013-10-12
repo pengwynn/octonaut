@@ -13,7 +13,7 @@ module Octonaut
         item = @client.repo(name)
       end
 
-      Octonaut.open item
+      Octonaut.open_relation item
     end
   end
 end
