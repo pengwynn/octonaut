@@ -49,7 +49,7 @@ module Octonaut
     c.action do |globa, options, args|
       name = args.shift
 
-      printer = Octonaut::Printers::Collaborators.new
+      printer = Octonaut::Printers::Users.new
       printer.print @client.collaborators(name)
     end
   end
