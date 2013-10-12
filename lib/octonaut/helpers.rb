@@ -1,20 +1,13 @@
 module Octonaut
   module Helpers
 
-    def open(resource, relation = 'html')
-      link_field = case relation
-                   when 'self'
-                     'url'
-                   when /_url$/
-                     relation
-                   else
-                     "#{relation}_url"
-                   end
-
-      url = resource.send(link_field.to_sym)
-
-      Launchy.open url
+    def open_relation(resource, relation = 'html')
+      url = resource.rels[relation.to_sym].href
+      open url
     end
 
+    def open(url)
+      Launchy.open url
+    end
   end
 end
