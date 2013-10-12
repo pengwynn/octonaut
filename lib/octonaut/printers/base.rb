@@ -4,6 +4,11 @@ module Octonaut
 
       def table(resource)
         data = resource.to_hash
+        unless field_map.empty?
+          data = data.select do |key, value|
+            field_map.keys.include?(key.to_s)
+          end
+        end
         width = data.keys.map(&:length).max
         data.each { | key, value | puts table_row(key, value, width) }
       end
@@ -17,8 +22,9 @@ module Octonaut
           raise ArgumentError.new("array of hashes required")
         end
 
-        fields  = FIELDS if defined?(FIELDS)
-        fields  ||= fields_from_hash(array.first)
+        fields  = field_map.empty? ?
+                  fields_from_hash(array.first) :
+                  field_map
         headers = fields.values
         keys    = fields.keys
 
@@ -37,11 +43,13 @@ module Octonaut
         end
         data = array.map(&:to_hash)
 
-        field = self.class.const_defined?(:LS_FIELD) ?
-                self.class::LS_FIELD :
-                data.first.keys.first
+        field = ls_field || data.first.keys.first
         puts data.map {|item| item[field] }.join("\n")
       end
+
+      def field_map; {} end
+
+      def ls_field; end
 
       private
 

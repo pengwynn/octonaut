@@ -2,20 +2,22 @@ module Octonaut
   module Printers
     class Users < Base
 
-      USER_FIELDS = {
-        "id"         => "ID",
-        "login"      => "LOGIN",
-        "name"       => "NAME",
-        "company"    => "COMPANY",
-        "location"   => "LOCATION",
-        "followers"  => "FOLLOWERS",
-        "following"  => "FOLLOWING",
-        "hireable"   => "HIREABLE",
-        "blog"       => "URL",
-        "created_at" => "JOINED"
-      }
+      def field_map
+        {
+          "id"         => "ID",
+          "login"      => "LOGIN",
+          "name"       => "NAME",
+          "company"    => "COMPANY",
+          "location"   => "LOCATION",
+          "followers"  => "FOLLOWERS",
+          "following"  => "FOLLOWING",
+          "hireable"   => "HIREABLE",
+          "blog"       => "URL",
+          "created_at" => "JOINED"
+        }
+      end
 
-      LS_FIELD = :login
+      def ls_field; :login end
     end
   end
 end
