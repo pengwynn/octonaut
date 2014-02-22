@@ -52,6 +52,36 @@ describe "octonaut" do
     expect(info['t']).to eq "e46e749d1c727ff18b7fa403e924e58407fd9ac7"
   end
 
+  it "correctly handles a 2FA response" do
+    now = Time.now
+    Time.stub(:now).and_return(now)
+
+    request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
+      with(:body => {"scopes" => [], "note" => "Octonaut #{now}"}.to_json).
+      to_return(:status => 401, :headers => {"X-GitHub-OTP" => "required; sms"})
+
+    request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
+      with(:body => {"scopes" => [], "note" => "Octonaut #{now}"}.to_json,
+        :headers => {"X-GitHub-OTP" => "123456"}).
+      to_return(json_response("token.json"))
+
+    HighLine.any_instance.should_receive(:ask).
+      with("GitHub username:      ").
+      and_return("defunkt")
+    HighLine.any_instance.should_receive(:ask).
+      with("Enter your password:  ").
+      and_return("il0veruby")
+    HighLine.any_instance.should_receive(:ask).
+      with("Enter your 2FA token: ").
+      and_return("123456")
+
+    Octonaut.run %w(authorize)
+
+    expect(request).to have_been_made
+    info = YAML::load_file(Octonaut.config_path)
+    expect(info['t']).to eq "e46e749d1c727ff18b7fa403e924e58407fd9ac7"
+  end
+
   it "doesn't step on an existing config file" do
     now = Time.now
     Time.stub(:now).and_return(now)

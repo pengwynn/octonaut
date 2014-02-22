@@ -5,9 +5,17 @@ module Octonaut
     c.action do |global,options,args|
       username = ask("GitHub username:      ")
       password = ask("Enter your password:  ") { |q| q.echo = false }
+      headers = {}
 
       client = Octokit::Client.new :login => username, :password => password
-      authorization = client.create_authorization :scopes => [], :note => "Octonaut #{Time.now}"
+      begin
+        authorization = client.create_authorization :scopes => [],
+          :note => "Octonaut #{Time.now}", :headers => headers
+      rescue Octokit::OneTimePasswordRequired
+        one_time_password = ask("Enter your 2FA token: ")
+        headers.merge!("X-GitHub-OTP" => one_time_password)
+        retry
+      end
 
       if File.readable?(Octonaut.config_path)
         config = YAML::load_file(Octonaut.config_path)
