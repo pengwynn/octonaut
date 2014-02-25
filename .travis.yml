@@ -8,9 +8,8 @@ rvm:
   - 2.1.0
 matrix:
   allow_failures:
-    - rvm:
-      - rbx-19mode
-      - jruby-19mode
+    - rvm: rbx-19mode
+    - rvm: jruby-19mode
 env:
   - OCTONAUT_TEST_LOGIN="api-padawan" OCTONAUT_TEST_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa"
 before_script:
