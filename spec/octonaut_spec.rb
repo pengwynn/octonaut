@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe "octonaut" do
+  before do
+    Socket.stub(:gethostname).and_return("hostname")
+  end
+
   it "finds plugins" do
     Octonaut.run %w(foo)
 
@@ -31,8 +35,11 @@ describe "octonaut" do
 
 
   it "can store a token for later" do
+    now = Time.now
+    Time.stub(:now).and_return(now)
+
     request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
-      with(:body => {"scopes" => []}.to_json).
+      with(:body => {"scopes" => [], "note" => "Octonaut hostname #{now}"}.to_json).
       to_return(json_response("token.json"))
 
     HighLine.any_instance.should_receive(:ask).
@@ -50,13 +57,16 @@ describe "octonaut" do
   end
 
   it "doesn't step on an existing config file" do
+    now = Time.now
+    Time.stub(:now).and_return(now)
+
     Octonaut.run %w(-u defunkt initconfig --force)
     info = YAML::load_file(Octonaut.config_path)
     expect(info['u']).to eq "defunkt"
     expect(info['t']).to be_nil
 
     request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
-      with(:body => {"scopes" => []}.to_json).
+      with(:body => {"scopes" => [], "note" => "Octonaut hostname #{now}"}.to_json).
       to_return(json_response("token.json"))
 
     HighLine.any_instance.should_receive(:ask).

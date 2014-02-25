@@ -7,7 +7,8 @@ module Octonaut
       password = ask("Enter your password:  ") { |q| q.echo = false }
 
       client = Octokit::Client.new :login => username, :password => password
-      authorization = client.create_authorization :scopes => []
+      hostname = Socket.gethostname
+      authorization = client.create_authorization :scopes => [], :note => "Octonaut #{hostname} #{Time.now}"
 
       if File.readable?(Octonaut.config_path)
         config = YAML::load_file(Octonaut.config_path)
