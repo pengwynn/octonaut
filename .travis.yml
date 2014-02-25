@@ -5,10 +5,12 @@ rvm:
   - rbx-19mode
   - 1.9.3
   - 2.0.0
+  - 2.1.0
 matrix:
   allow_failures:
     - rvm: rbx-19mode
+    - rvm: jruby-19mode
 env:
-  - OCTONAUT_TEST_LOGIN="api-padawan" OCTONAUT_TEST_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa" 
+  - OCTONAUT_TEST_LOGIN="api-padawan" OCTONAUT_TEST_TOKEN="6a21f190e3422bf89afa8b360d923b0c30e8fbfa"
 before_script:
   - chmod 600 tmp/fakehome/.netrc
