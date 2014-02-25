@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe "octonaut" do
+  before do
+    Socket.stub(:gethostname).and_return("hostname")
+  end
+
   it "finds plugins" do
     Octonaut.run %w(foo)
 
@@ -35,7 +39,7 @@ describe "octonaut" do
     Time.stub(:now).and_return(now)
 
     request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
-      with(:body => {"scopes" => [], "note" => "Octonaut #{now}"}.to_json).
+      with(:body => {"scopes" => [], "note" => "Octonaut hostname #{now}"}.to_json).
       to_return(json_response("token.json"))
 
     HighLine.any_instance.should_receive(:ask).
@@ -57,11 +61,11 @@ describe "octonaut" do
     Time.stub(:now).and_return(now)
 
     request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
-      with(:body => {"scopes" => [], "note" => "Octonaut #{now}"}.to_json).
+      with(:body => {"scopes" => [], "note" => "Octonaut hostname #{now}"}.to_json).
       to_return(:status => 401, :headers => {"X-GitHub-OTP" => "required; sms"})
 
     request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
-      with(:body => {"scopes" => [], "note" => "Octonaut #{now}"}.to_json,
+      with(:body => {"scopes" => [], "note" => "Octonaut hostname #{now}"}.to_json,
         :headers => {"X-GitHub-OTP" => "123456"}).
       to_return(json_response("token.json"))
 
@@ -92,7 +96,7 @@ describe "octonaut" do
     expect(info['t']).to be_nil
 
     request = stub_post("https://defunkt:il0veruby@api.github.com/authorizations").
-      with(:body => {"scopes" => [], "note" => "Octonaut #{now}"}.to_json).
+      with(:body => {"scopes" => [], "note" => "Octonaut hostname #{now}"}.to_json).
       to_return(json_response("token.json"))
 
     HighLine.any_instance.should_receive(:ask).
@@ -118,4 +122,3 @@ describe "octonaut" do
     end
   end
 end
-
