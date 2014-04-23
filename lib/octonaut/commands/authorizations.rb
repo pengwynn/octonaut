@@ -11,7 +11,7 @@ module Octonaut
       client = Octokit::Client.new :login => username, :password => password
       begin
         authorization = client.create_authorization :scopes => [],
-          :note => "Octonaut #{hostname} #{Time.now}", :headers => {}
+          :note => "Octonaut #{hostname} #{Time.now}", :headers => headers
       rescue Octokit::OneTimePasswordRequired
         one_time_password = ask("Enter your 2FA token: ")
         headers.merge!("X-GitHub-OTP" => one_time_password)
